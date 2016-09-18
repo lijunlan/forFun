@@ -1,0 +1,69 @@
+package com.sdll18.umedia.PackUtil;
+
+import java.io.File;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CredentialsProvider;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
+
+public class UpWarUtil {
+
+	private static final String username = "forupload";
+	private static final String password = "123654789";
+
+	public static void main(String[] args) {
+		upWar("/123.war", "123");
+	}
+
+	public static void startWar(String appName) {
+		CredentialsProvider provider = new BasicCredentialsProvider();
+		UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(
+				username, password);
+		provider.setCredentials(AuthScope.ANY, credentials);
+		HttpClient httpClient = HttpClientBuilder.create()
+				.setDefaultCredentialsProvider(provider).build();
+		HttpGet get = new HttpGet(
+				"http://www.sdll18.com/manager/text/start?path=/" + appName);
+		String result = null;
+		try {
+			HttpResponse response = httpClient.execute(get);
+
+			if (response.getStatusLine().getStatusCode() == 200) {
+				result = EntityUtils.toString(response.getEntity(), "utf8");
+				// System.out.println(result);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void upWar(String path, String appName) {
+		File file = new File(path);
+		CredentialsProvider provider = new BasicCredentialsProvider();
+		UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(
+				username, password);
+		provider.setCredentials(AuthScope.ANY, credentials);
+		HttpClient httpClient = HttpClientBuilder.create()
+				.setDefaultCredentialsProvider(provider).build();
+		HttpGet get = new HttpGet(
+				"http://www.sdll18.com/manager/text/deploy?path=/" + appName
+						+ "&war=" + file.getAbsolutePath());
+		String result = null;
+		try {
+			HttpResponse response = httpClient.execute(get);
+
+			if (response.getStatusLine().getStatusCode() == 200) {
+				result = EntityUtils.toString(response.getEntity(), "utf8");
+				// System.out.println(result);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}

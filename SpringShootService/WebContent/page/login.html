@@ -1,0 +1,71 @@
+
+<html>
+<head>
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/works.css">
+
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="bootstrap/js/jquery.min.js"></script>
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="bootstrap/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+body {
+	background-image: url('img/homepage_background3.jpg');
+	background-attachment: fixed;
+}
+
+h1 {
+	text-align: center
+}
+</style>
+<script type="text/javascript">
+	function login() {
+		var form = document.createElement("form");
+		//document.body.appendChild(f);
+		var username = document.getElementById("username");
+		var password = document.getElementById("password");
+		form.appendChild(username);
+		form.appendChild(password);
+		form.method = "post";
+		form.action = "/SpringShootService/login";
+		form.submit();
+	}
+</script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="span4">
+				<img alt="" src="img/title.png" />
+			</div>
+			<div class="span1"></div>
+			<div class="span7">
+				</br> </br> </br> </br> </br>
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#">&nbsp;&nbsp;管理登录&nbsp;&nbsp;</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="navbar-form pull-left">
+			账号： <input id="username" type="text" name="username"> <br />
+			密码： <input id="password" type="password" name="password"> <br />
+			<br />
+			<button class="btn" onclick="login()">登录</button>
+		</div>
+
+		</br> </br> </br> </br> <br /> <br />
+		<div class="copyright">
+			春天摄影工作室&nbsp;&nbsp;版权所有&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+				href="http://www.springphoto.cn/">www.springphoto.cn</a>. All Right
+			Reserved 2014.
+		</div>
+
+	</div>
+</body>
+</html>

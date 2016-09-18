@@ -1,0 +1,24 @@
+<?xml version = "1.0" encoding= "UTF-8"?>
+<service-configuration>
+	<cachePath value="/Users/SDLL18/Desktop" />
+	<httpPath value="http://localhost:8080" />
+	<style name="user">
+		<method name="login" beanName="loginService" />
+		<method name="logout" beanName="logoutService" />
+		<method name="register" beanName="registerService" />
+		<method name="change_info" beanName="" />
+		<method name="change_password" beanName="" />
+		<method name="get_info" beanName="getUserInfoService" />
+	</style>
+	<style name="order">
+		<method name="create" beanName="createOrderService" />
+		<method name="update" beanName="" />
+		<method name="delete" beanName="" />
+		<method name="change" beanName="changeOrderService" />
+		<method name="get_list" beanName="getOrderListService" />
+		<method name="order_done" beanName="endOrderService" />
+	</style>
+	<style name="manager">
+		<method name="login" beanName="upLoadActionService" />
+	</style>
+</service-configuration>

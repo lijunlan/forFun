@@ -1,0 +1,34 @@
+package com.sdll18.umedia.PackUtil;
+
+import java.io.File;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+
+public class UpWarUtil {
+
+	public static void main(String[] args) {
+		upWar(null);
+	}
+
+	public static void upWar(String path) {
+		File file = new File(path);
+		HttpClient httpClient = HttpClients.createDefault();
+		HttpGet get = new HttpGet(
+				"http://localhost:80/manager/text/deploy?war=jar:file:"
+						+ file.getAbsolutePath() + "!/");
+		String result = null;
+		try {
+			HttpResponse response = httpClient.execute(get);
+			if (response.getStatusLine().getStatusCode() == 200) {
+				result = EntityUtils.toString(response.getEntity(), "utf8");
+				//System.out.println(result);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}

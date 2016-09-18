@@ -1,0 +1,33 @@
+package com.sdll18.umedia.Deal.Service;
+
+import java.util.Map;
+
+public abstract class MsgService {
+
+	private String resMsg = "{'state':'unknown error}";
+	private Map<String, String> inMap;
+
+	protected MsgService() {
+	}
+
+	public boolean setDataMap(Map<String, String> data) {
+		inMap = data;
+		return checkData();
+	}
+
+	protected Map<String, String> getData() {
+		return inMap;
+	}
+
+	protected abstract boolean checkData();
+
+	public abstract void doit();
+
+	protected void setResMsg(String msg) {
+		resMsg = msg;
+	}
+
+	public String getResponseMsg() {
+		return resMsg;
+	}
+}

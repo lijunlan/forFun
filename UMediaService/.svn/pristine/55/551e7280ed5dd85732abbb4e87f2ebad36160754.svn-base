@@ -1,0 +1,179 @@
+package com.sdll18.umedia.Deal;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.context.ApplicationContext;
+
+import com.sdll18.umedia.Data.Json;
+import com.sdll18.umedia.Data.MsgUtil;
+import com.sdll18.umedia.Deal.Service.MsgService;
+import com.sdll18.umedia.Protocol.Protocol;
+
+/**
+ * This class deal with the application of download
+ * 
+ * @author SDLL18
+ * 
+ */
+public class ManageDeal {
+
+	/**
+	 * deal with the application of download
+	 * 
+	 * @param rq
+	 * @param rp
+	 * @param context
+	 */
+	public static void deal(HttpServletRequest rq, HttpServletResponse rp,
+			ApplicationContext context) {
+		ManageDeal dMsgDeal = new ManageDeal(rq, rp, context);
+		dMsgDeal.start();
+		dMsgDeal.doit();
+	}
+
+	private HttpServletRequest req;
+	private HttpServletResponse resp;
+	private MsgService util;
+	private ApplicationContext applicationContext;
+	private Map<String, String> data;
+
+	private ManageDeal(HttpServletRequest rq, HttpServletResponse rp,
+			ApplicationContext context) {
+		req = rq;
+		resp = rp;
+		applicationContext = context;
+	}
+
+	/**
+	 * get json data from the httpRequest's content
+	 * 
+	 * @param rq
+	 * @return
+	 */
+	private static String getJson(HttpServletRequest rq) {
+		InputStream in = null;
+		StringBuffer sBuffer = new StringBuffer();
+		byte[] buffer = new byte[1024];
+		try {
+			in = rq.getInputStream();
+			while (in.read(buffer) > 0) {
+				sBuffer.append(new String(buffer));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (in != null)
+					in.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return sBuffer.toString();
+	}
+
+	/**
+	 * mission start<br/>
+	 * choose method to deal with the application by the <b>style</b> field
+	 */
+	private void start() {
+		data = Json.getMap(getJson(req));
+		if (data.containsKey("style") && data.containsKey("method")) {
+			String style = data.get("style");
+			String method = data.get("method");
+			switch (style) {
+			case Protocol.STYLE_USER:
+				userProcess(method);
+				break;
+			case Protocol.STYLE_APPLICATION:
+				applicationProcess(method);
+				break;
+			default:
+				returnError(MsgUtil.getErrorMsg("style is not acurate"));
+				break;
+			}
+
+		} else {
+			returnError(MsgUtil
+					.getErrorMsg("the style or method field is not included"));
+		}
+	}
+
+	private void userProcess(String method) {
+		switch (method) {
+		case Protocol.METHOD_GET_USER_INFO:
+			util = (MsgService) applicationContext
+					.getBean("downUserInfoService");
+			break;
+		case Protocol.METHOD_CHANGE_USER_INFO:
+			util = (MsgService) applicationContext
+					.getBean("changeUserInfoService");
+			break;
+		default:
+			returnError(MsgUtil.getErrorMsg("method is not acurate"));
+			break;
+		}
+	}
+
+	private void applicationProcess(String method) {
+		switch (method) {
+		case Protocol.METHOD_APPLICATION_GET_INFO:
+			util = (MsgService) applicationContext.getBean("downAppInfoService");
+			break;
+		case Protocol.METHOD_APPLICATION_GET_LIST:
+			util = (MsgService) applicationContext
+					.getBean("downAppListService");
+			break;
+		default:
+			returnError(MsgUtil.getErrorMsg("method is not acurate"));
+			break;
+		}
+	}
+
+	/**
+	 * use relevant tool to process it<br/>
+	 * return error message if data is incomplete
+	 */
+	private void doit() {
+		if (util != null) {
+			if (util.setDataMap(data)) {
+				util.doit();
+				returnMsg(util.getResponseMsg());
+			} else {
+				returnError(MsgUtil.getErrorMsg("data is incomplete"));
+			}
+		}
+	}
+
+	/**
+	 * return message through httpResponse
+	 * 
+	 * @param msg
+	 */
+	private void returnMsg(String msg) {
+		resp.setCharacterEncoding("UTF-8");
+		resp.setHeader("Content-type", "text/html;charset=UTF-8");
+		try {
+			OutputStream stream = resp.getOutputStream();
+			System.out.println(msg);
+			stream.write(msg.getBytes("UTF-8"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * return error message
+	 * 
+	 * @param msg
+	 */
+	private void returnError(String msg) {
+		returnMsg(msg);
+	}
+}

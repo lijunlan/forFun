@@ -1,0 +1,242 @@
+
+<html>
+<head>
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/works.css">
+
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="bootstrap/js/jquery.min.js"></script>
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="plupload/jquery.min.js"></script>
+<script src="cookie.js"></script>
+<style type="text/css">
+body {
+	background-image: url('img/homepage_background3.jpg');
+	background-attachment: fixed;
+}
+
+h1 {
+	text-align: center
+}
+</style>
+<script type="text/javascript" src="plupload/js/plupload.full.js"></script>
+<script type="text/javascript"
+	src="plupload/js/jquery.plupload.queue/jquery.plupload.queue.js"></script>
+<script type="text/javascript" src="plupload/js/i18n/cn.js"></script>
+<style type="text/css">
+@import
+	url(plupload/js/jquery.plupload.queue/css/plupload.bootstrap.css);
+</style>
+<script type="text/javascript">
+	var j16 = jQuery.noConflict();
+	// Convert divs to queue widgets when the DOM is ready
+	j16(document)
+			.ready(
+					function() {
+						if (getCookie("user_id") == null) {
+							alert("请先登录！");
+							self.location = 'login.html';
+						}
+						j16
+								.ajax({
+									cache : true,
+									type : "POST",
+									url : "/SpringShootService/getalbum",
+									data : "{'category':'旅拍'}",
+									async : false,
+									error : function(request) {
+										alert("Connection error");
+									},
+									success : function(data, textStatu) {
+										var html = "";
+										var json = eval("(" + data + ")");
+										j16
+												.each(
+														json,
+														function(index, value) {
+															html = html
+																	+ "<li class=\"span4\">"
+																	+ "<a href=\"manage_photo.html?album="
+																	+ value.id
+																	+ "\" class=\"thumbnail\">"
+																	+ "<img data-src=\"holder.js/300*200\" alt=\"300*200\""
+																	+	"style=\"width: 133px; height: 200px;\""
+																	+	"src=\""
+																	+ value.url
+																	+"\">"
+																	+ "</a></li>"
+														});
+										j16('#albums').html(html);
+									}
+								});
+					});
+	j16(function() {
+		j16("#uploader").pluploadQueue({
+			// General settings
+			runtimes : 'html5,flash,silverlight,html4',
+			url : '/SpringShootService/upimage',
+			max_file_size : '10mb',
+			unique_names : true,
+			multiple_queues : true,
+			//一次只能选择一个图片
+			multi_selection : true,
+			dragdrop : true,
+			chunk_size : '10mb',
+			// Specify what files to browse for
+			filters : [ {
+				title : "图片",
+				extensions : "jpg,bmp,png,gif"
+			} ],
+			// Flash settings
+			flash_swf_url : 'js/plupload/js/plupload.flash.swf',
+			// Silverlight settings
+			silverlight_xap_url : 'js/plupload/js/plupload.silverlight.xap'
+		});
+
+		var upl = j16("#uploader").pluploadQueue();
+		upl.bind('FileUploaded', function(up, file, res) {
+			try {
+				var json = jQuery.parseJSON(res['response']);
+				j16('#photos').val(j16('#photos').val() + ";" + json['url']);
+			} catch (e) {
+				alert(e);
+			}
+		});
+
+		j16("#uploader").pluploadQueue();
+		upl.bind('FilesAdded', function(up, files) {
+			if (up.files.length > 100) {
+				alert("您只能上传100张图片！");
+				up.removeFile(files[0]);
+			}
+		});
+
+		j16('#form')
+				.submit(
+						function(e) {
+							var uploader = $('#uploader').pluploadQueue();
+							alert(uploader.files.length);
+							if (uploader.files.length > 0
+									&& uploader.files.length < 101) {
+								// When all files are uploaded submit form
+								uploader
+										.bind(
+												'StateChanged',
+												function() {
+													if (uploader.files.length === (uploader.total.uploaded + uploader.total.failed)) {
+														j16('form')[1].submit();
+													}
+												});
+								uploader.start();
+							} else if (uploader.files.length > 0) {
+								alert("您只能上传100张图片！");
+							} else {
+								alert('请选择一张或多张图片!');
+							}
+							return false;
+						});
+	});
+
+	function create() {
+		var tmp = j16('#photos').val();
+		if (tmp == null || tmp == "") {
+			alert("请先上传图片");
+			return;
+		}
+		var urls = tmp.substring(1, tmp.length);
+		j16.ajax({
+			cache : true,
+			type : "POST",
+			url : "/SpringShootService/create",
+			data : "{'urls':'" + urls + "', 'category':'旅拍'}",
+			async : false,
+			error : function(request) {
+				alert("Connection error");
+			},
+			success : function(data, textStatu) {
+				location.replace(location.href);
+			}
+		});
+	}
+</script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="span4">
+				<img alt="" src="img/title.png" />
+			</div>
+			<div class="span1"></div>
+			<div class="span7">
+				</br> </br> </br> </br> </br>
+				<ul class="nav nav-tabs">
+					<li><a href="manage.html">&nbsp;&nbsp;儿童&nbsp;&nbsp;</a></li>
+					<li><a href="manage2.html">&nbsp;&nbsp;婚礼&nbsp;&nbsp;</a></li>
+					<li><a href="manage3.html">&nbsp;&nbsp;写真&nbsp;&nbsp;</a></li>
+					<li><a href="manage4.html">&nbsp;&nbsp;孕妇&nbsp;&nbsp;</a></li>
+					<li><a href="manage5.html">&nbsp;&nbsp;亲子&nbsp;&nbsp;</a></li>
+					<li class="active"><a href="manage6.html">&nbsp;&nbsp;旅拍&nbsp;&nbsp;</a></li>
+
+				</ul>
+			</div>
+		</div>
+
+		<ul class="breadcrumb">
+			<li>相册管理</li>
+		</ul>
+
+		<div class="row-fluid">
+			<div class="span12">
+				<a id="modal-531306" href="#modal-container-531306" class="btn"
+					role="button" data-toggle="modal">创建相册</a>
+			</div>
+		</div>
+		</br>
+		<ul id="albums" class="thumbnails">
+			<li class="span4"><a href="manage_photo.html" class="thumbnail">
+					<img data-src="holder.js/300*200" alt="300*200"
+					style="width: 133px; height: 200px;"
+					src="img/homepage_img6_shu.jpg">
+			</a></li>
+		</ul>
+
+		</br>
+		<div class="copyright">
+			春天摄影工作室&nbsp;&nbsp;版权所有&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+				href="http://www.springphoto.cn/">www.springphoto.cn</a> All Right
+			Reserved 2014.
+		</div>
+
+	</div>
+	<div class="modal fade" id="modal-container-531306" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true"
+		style="display: none">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">×</button>
+					<h4 class="modal-title" id="myModalLabel">上传图片</h4>
+				</div>
+				<div class="modal-body">
+					<div id="uploader">
+						<p>您的浏览器未安装 Flash, Silverlight, Gears, BrowserPlus 或者支持 HTML5
+							.</p>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input id="photos" hidden="true"></input>
+					<button class="btn" style="background: #f3ebde; color: #000000"
+						onclick="create()">创建相册</button>
+					<button data-dismiss="modal" type="button" class="btn btn-primary"
+						style="background: #f3ebde; color: #000000">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

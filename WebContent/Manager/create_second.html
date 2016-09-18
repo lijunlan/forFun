@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+<meta charset="utf-8">
+<title>创建App</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="1.0">
+<meta name="author" content="sdll18">
+<link rel="apple-touch-icon-precomposed" sizes="144x144"
+	href="img/144.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114"
+	href="img/114.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/72.png">
+<link rel="apple-touch-icon-precomposed" href="img/57.png">
+<link rel="shortcut icon" href="img/57.png">
+<style type="text/css">
+body {
+	background-color: #323232;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+body,td,th {
+	color: #5E5E5E;
+	font-size: 12px;
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+</style>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/cookie.js"></script>
+<script type="text/javascript" src="js/jsonutil.js"></script>
+<script type="text/javascript">
+	$(document).ready(
+			function() {
+				if (getCookie("user_id") == null) {
+					alert("请先登录！");
+					self.location = 'login.html';
+				}
+				if (getCookie("app_name") == null
+						|| getCookie("app_description") == null
+						|| getCookie("app_icon") == null) {
+					 back();
+				}
+			});
+	function back() {
+		delCookie("app_name");
+		delCookie("app_icon");
+		delCookie("app_description");
+		self.location = 'control_app.html';
+	}
+	function MM_swapImgRestore() { //v3.0
+		var i, x, a = document.MM_sr;
+		for (i = 0; a && i < a.length && (x = a[i]) && x.oSrc; i++)
+			x.src = x.oSrc;
+	}
+	function MM_preloadImages() { //v3.0
+		var d = document;
+		if (d.images) {
+			if (!d.MM_p)
+				d.MM_p = new Array();
+			var i, j = d.MM_p.length, a = MM_preloadImages.arguments;
+			for (i = 0; i < a.length; i++)
+				if (a[i].indexOf("#") != 0) {
+					d.MM_p[j] = new Image;
+					d.MM_p[j++].src = a[i];
+				}
+		}
+	}
+
+	function MM_findObj(n, d) { //v4.01
+		var p, i, x;
+		if (!d)
+			d = document;
+		if ((p = n.indexOf("?")) > 0 && parent.frames.length) {
+			d = parent.frames[n.substring(p + 1)].document;
+			n = n.substring(0, p);
+		}
+		if (!(x = d[n]) && d.all)
+			x = d.all[n];
+		for (i = 0; !x && i < d.forms.length; i++)
+			x = d.forms[i][n];
+		for (i = 0; !x && d.layers && i < d.layers.length; i++)
+			x = MM_findObj(n, d.layers[i].document);
+		if (!x && d.getElementById)
+			x = d.getElementById(n);
+		return x;
+	}
+
+	function MM_swapImage() { //v3.0
+		var i, j = 0, x, a = MM_swapImage.arguments;
+		document.MM_sr = new Array;
+		for (i = 0; i < (a.length - 2); i += 3)
+			if ((x = MM_findObj(a[i])) != null) {
+				document.MM_sr[j++] = x;
+				if (!x.oSrc)
+					x.oSrc = x.src;
+				x.src = a[i + 2];
+			}
+	}
+</script>
+</head>
+<body
+	onLoad="MM_preloadImages('img/3s.jpg','img/4s.jpg','img/save_sel.jpg','img/quit_sel.jpg','img/1s.jpg')">
+	<table width="1102" border="0" align="center" cellpadding="1"
+		cellspacing="0">
+		<tbody>
+			<tr>
+				<th height="60" colspan="3" align="left" valign="bottom"
+					bgcolor="#161616" scope="col"><img src="img/logo.png"
+					width="54" height="46" alt="" /><img src="img/u_media.png"
+					width="133" height="34" alt="" /></th>
+			</tr>
+
+			<tr>
+				<td width="399" height="679" align="center" valign="middle"
+					background="img/create_background.jpg"><img
+					src="img/timeline.png" width="220" height="434" alt="" /></td>
+				<td width="700" align="left" valign="top"
+					background="img/create_background.jpg"><table width="700"
+						border="0" cellspacing="0" cellpadding="0">
+						<tbody>
+							<tr>
+								<td width="701" height="145" valign="bottom"><table
+										width="500" border="0" cellspacing="0" cellpadding="0">
+										<tbody>
+											<tr>
+												<td><a href="create_first.html"
+													onMouseOut="MM_swapImgRestore()"
+													onMouseOver="MM_swapImage('Image8','','img/1s.jpg',1)"><img
+														src="img/1.jpg" alt="" width="123" height="48" id="Image8"></a></td>
+												<td><img src="img/2s.jpg" width="123" height="48"
+													alt="" /></td>
+												<td><a href="create_third.html"
+													onMouseOut="MM_swapImgRestore()"
+													onMouseOver="MM_swapImage('Image5','','img/3s.jpg',1)"><img
+														src="img/3.jpg" alt="" width="123" height="48" id="Image5"></a></td>
+											</tr>
+										</tbody>
+									</table></td>
+							</tr>
+							<tr>
+								<td
+									style="color: #0D6251; font-size: 16px; font-family: Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;">&nbsp;</td>
+							</tr>
+							<tr>
+								<td height="28"
+									style="color: #0D6251; font-size: 16px; font-family: Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;"><p>请选择推送的信息：图片、文字、两者均可</p></td>
+							</tr>
+							<tr>
+								<td height="367" valign="top"><table width="351"
+										height="315" border="0" cellpadding="0" cellspacing="0">
+										<tbody>
+											<tr>
+												<td width="150" height="23" valign="top"><input
+													type="checkbox" name="checkbox2" id="checkbox2"> <strong>发送图片</strong></td>
+												<td width="23" rowspan="2" valign="top">&nbsp;</td>
+												<td width="178" valign="top">&nbsp;</td>
+											</tr>
+											<tr>
+												<td height="99" valign="top"><img src="img/pic.png"
+													width="150" height="195" alt="" /></td>
+												<td width="178" valign="top"><img src="img/pic2.png"
+													width="150" height="195" alt="" /></td>
+											</tr>
+											<tr>
+												<td height="27" colspan="3"><input type="checkbox"
+													name="checkbox" id="checkbox"> <strong>
+														发送文字</strong></td>
+
+											</tr>
+											<tr>
+												<td colspan="3"><img src="img/word.png" width="150"
+													height="70" alt="" /></td>
+											</tr>
+										</tbody>
+									</table></td>
+							</tr>
+						</tbody>
+					</table>
+					<table width="530" height="52" border="0" cellpadding="0"
+						cellspacing="0">
+						<tbody>
+							<tr>
+								<td height="48" align="right" valign="bottom"><a
+									onMouseOut="MM_swapImgRestore()"
+									onMouseOver="MM_swapImage('Image7','','img/save_sel.jpg',1)"><img
+										src="img/save.jpg" alt="" width="114" height="41" id="Image7">
+								</a><a onMouseOut="MM_swapImgRestore()" onclick="back()"
+									onMouseOver="MM_swapImage('Image9','','img/quit_sel.jpg',1)"><img
+										src="img/quit.jpg" alt="" width="114" height="41" id="Image9"></a></td>
+							</tr>
+						</tbody>
+					</table></td>
+			</tr>
+			<tr>
+				<th height="39" colspan="4" align="center" bgcolor="#161616"
+					scope="row">&copy;<span
+					style="font-size: 12px; font-family: Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #5E5E5E;">
+						Copyright 2014 by Melon Studio</span></th>
+			</tr>
+		</tbody>
+	</table>
+</body>

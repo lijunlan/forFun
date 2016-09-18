@@ -1,0 +1,313 @@
+package com.sdll18.umedia.PackUtil;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
+
+import net.sf.json.JSONObject;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+
+import com.sdll18.umedia.Data.StreamGobbler;
+
+public class PackWarUtil {
+
+	// "/Users/SDLL18/Desktop"
+	private static final String CREATE_APP_FILE_DIRECTORY = "/AppData";
+
+	public static void main(String[] args) {
+		Map<String, String> sd = new HashMap<String, String>();
+		sd.put("host", "http://www.sdll18.com");
+		sd.put("hostName", "SDLL18");
+		sd.put("cachePath", "/WebData/SDLL18/");
+		sd.put("id", "1");
+		Map<String, Map<String, String>> cd = new HashMap<String, Map<String, String>>();
+		Map<String, String> tmp = new HashMap<String, String>();
+		tmp.put("cancel_praise", "deletePraiseService");
+		tmp.put("praise", "upPraiseService");
+		cd.put("user", tmp);
+		tmp = new HashMap<String, String>();
+		tmp.put("get_comment_list", "downCommentService");
+		cd.put("comment", tmp);
+		createApp("SDLL18", sd, cd);
+	}
+
+	public static void create(final String appName, final String iconUrl,
+			final String ownName, final String discription,
+			final String user_id, final String app_id) {
+		Map<String, String> sd = new HashMap<String, String>();
+		sd.put("host", "http://www.sdll18.com");
+		sd.put("hostName", appName);
+		sd.put("cachePath", "/WebData/" + appName + "/");
+		sd.put("id", user_id);
+		sd.put("iconUrl", iconUrl);
+		sd.put("ownName", ownName);
+		sd.put("discription", discription);
+		Map<String, Map<String, String>> cd = new HashMap<String, Map<String, String>>();
+		Map<String, String> tmp = new HashMap<String, String>();
+		tmp.put("cancel_praise", "deletePraiseService");
+		tmp.put("share", "upShareService");
+		tmp.put("praise", "upPraiseService");
+		tmp.put("check_praise", "downPraiseService");
+		tmp.put("get_user_info", "downUserInfoService");
+		tmp.put("get_user_list", "downUserListService");
+		tmp.put("login", "loginService");
+		tmp.put("logout", "logoutService");
+		tmp.put("register", "registerService");
+		tmp.put("change_password", "changePasswordService");
+		tmp.put("change_info", "changeUserInfoService");
+		tmp.put("get_all_user_analyze_info", "downUserIpInfoService");
+		cd.put("user", tmp);
+		tmp = new HashMap<String, String>();
+		tmp.put("get_comment_list", "downCommentService");
+		tmp.put("delete_comment", "deleteCommentService");
+		tmp.put("upload_comment", "upCommentService");
+		cd.put("comment", tmp);
+		tmp = new HashMap<String, String>();
+		tmp.put("upload_action", "upLoadActionService");
+		tmp.put("delete_message", "deleteMsgService");
+		tmp.put("get_message_list", "downMsgService");
+		tmp.put("upload_recommend_message", "upRecommendMsgService");
+		tmp.put("upload_message", "upTextMsgService");
+		tmp.put("upload_image_message", "upImageMsgService");
+		tmp.put("down_recommend_message", "downRecommendMessageService");
+		cd.put("news", tmp);
+		tmp = new HashMap<String, String>();
+		tmp.put("get_msg_list", "downMessageService");
+		tmp.put("delete_msg", "deleteMessageService");
+		tmp.put("upload_msg", "upMessageService");
+		tmp.put("get_recent_list", "downRecentMessageListService");
+		tmp.put("delete_many_msg", "deleteManyMessageService");
+		cd.put("message", tmp);
+		tmp = new HashMap<String, String>();
+		tmp.put("get_own_info", "downOwnInfoService");
+		cd.put("own", tmp);
+		createApp(appName, sd, cd);
+		reportEnd(app_id);
+	}
+
+	public static void createApp(final String appName,
+			final Map<String, String> settingData,
+			final Map<String, Map<String, String>> configData) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				File original = new File(CREATE_APP_FILE_DIRECTORY
+						+ "/packTest/AppFactoryService");
+				File output = new File(CREATE_APP_FILE_DIRECTORY + "/"
+						+ appName + "/" + appName);
+				pack(appName, original, output, settingData, configData);
+			}
+		}).start();
+	}
+
+	public static void command(File pack, File sql, String appName)
+			throws IOException, InterruptedException {
+		execPackSyns(appName);
+		execSqlSyns(appName);
+	}
+
+	private static void execSqlSyns(String appName) throws IOException,
+			InterruptedException {
+		Process p = Runtime.getRuntime().exec(
+				"/bin/sh " + CREATE_APP_FILE_DIRECTORY + "/" + appName
+						+ "/sql.sh");
+		StreamGobbler errorGobbler = new StreamGobbler(p.getErrorStream(),
+				"ERROR");
+		errorGobbler.start();
+		StreamGobbler outGobbler = new StreamGobbler(p.getInputStream(),
+				"STDOUT");
+		outGobbler.start();
+		p.waitFor();
+	}
+
+	private static void execPackSyns(String appName) throws IOException,
+			InterruptedException {
+		Process p = Runtime.getRuntime().exec(
+				"/bin/sh " + CREATE_APP_FILE_DIRECTORY + "/" + appName
+						+ "/pack.sh");
+		StreamGobbler errorGobbler = new StreamGobbler(p.getErrorStream(),
+				"ERROR");
+		errorGobbler.start();
+		StreamGobbler outGobbler = new StreamGobbler(p.getInputStream(),
+				"STDOUT");
+		outGobbler.start();
+		p.waitFor();
+	}
+
+	public static void reportEnd(String app_id) {
+		HttpClient httpClient = HttpClients.createDefault();
+		HttpPost post = new HttpPost(
+				"http://www.sdll18.com/UMediaService/manage");
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("style", "application");
+		jsonObject.put("method", "create_end");
+		jsonObject.put("app_id", app_id);
+		try {
+			post.setEntity(new StringEntity(jsonObject.toString()));
+			HttpResponse response = httpClient.execute(post);
+			if (response.getStatusLine().getStatusCode() == 200) {
+				//String result = 
+				EntityUtils.toString(response.getEntity());
+				// System.out.println(result);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void pack(String appName, File original, File output,
+			Map<String, String> settingData,
+			Map<String, Map<String, String>> configData) {
+		if (output.getParentFile() != null && !output.getParentFile().exists()) {
+			output.getParentFile().mkdirs();
+		}
+		try {
+			FileUtil.copyDirectiory(original.getAbsolutePath(),
+					output.getAbsolutePath());
+			FileUtil.copyFile(original.getParentFile().getAbsolutePath()
+					+ "/pack.sh", output.getParentFile().getAbsolutePath()
+					+ "/pack.sh");
+			FileUtil.copyFile(original.getParentFile().getAbsolutePath()
+					+ "/sql.sh", output.getParentFile().getAbsolutePath()
+					+ "/sql.sh");
+			File packsh = new File(output.getParentFile().getAbsolutePath()
+					+ "/pack.sh");
+			File sqlsh = new File(output.getParentFile().getAbsolutePath()
+					+ "/sql.sh");
+			File config = new File(output.getAbsolutePath()
+					+ "/WEB-INF/classes/config.xml");
+			File hibernate = new File(output.getAbsolutePath()
+					+ "/WEB-INF/classes/hibernate.cfg.xml");
+			File js = new File(output.getAbsolutePath()
+					+ "/appManager/functional_js/upPassage.js");
+			File html = new File(output.getAbsolutePath()
+					+ "/appManager/upPassage.html");
+			File web = new File(output.getAbsolutePath() + "/WEB-INF/web.xml");
+			WriteXmlUtil.writeXml(config, configData, settingData);
+			replaceString(hibernate, "appfactory", appName);
+			replaceString(hibernate, "update", "create");
+			replaceAllString(js, "AppFactoryService", appName);
+			replaceString(web, "AppFactoryService", appName);
+			replaceAllString(packsh, "NAME", CREATE_APP_FILE_DIRECTORY + "/"
+					+ appName + "/" + appName);
+			replaceString(html, "AppFactoryService", appName);
+			replaceString(sqlsh, "NAME", appName);
+			command(packsh, sqlsh, appName);
+			UpWarUtil.upWar(output.getAbsolutePath() + ".war", appName);
+			// UpWarUtil.startWar(appName);
+		} catch (IOException | InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void replaceAllString(File file, String oldString,
+			String newString) {
+		FileReader fr = null;
+		BufferedReader br = null;
+		StringBuffer sb = new StringBuffer();
+		try {
+			fr = new FileReader(file);
+			br = new BufferedReader(fr);
+			String temp;
+			while ((temp = br.readLine()) != null) {
+				sb.append(temp + "\n");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (br != null)
+					br.close();
+				if (fr != null)
+					fr.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		String ns = sb.toString().replaceAll(oldString, newString);
+		FileWriter fw = null;
+		PrintWriter pw = null;
+		try {
+			fw = new FileWriter(file);
+			pw = new PrintWriter(fw);
+			pw.write(ns);
+			pw.flush();
+			fw.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pw != null)
+					pw.close();
+				if (fw != null)
+					fw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	public static void replaceString(File file, String oldString,
+			String newString) {
+
+		FileReader fr = null;
+		BufferedReader br = null;
+		StringBuffer sb = new StringBuffer();
+		try {
+			fr = new FileReader(file);
+			br = new BufferedReader(fr);
+			String temp;
+			while ((temp = br.readLine()) != null) {
+				sb.append(temp + "\n");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (br != null)
+					br.close();
+				if (fr != null)
+					fr.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		int start = sb.indexOf(oldString);
+		int end = start + (oldString).length();
+		if (start != -1) {
+			sb.replace(start, end, newString);
+			FileWriter fw = null;
+			PrintWriter pw = null;
+			try {
+				fw = new FileWriter(file);
+				pw = new PrintWriter(fw);
+				pw.write(sb.toString());
+				pw.flush();
+				fw.flush();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (pw != null)
+						pw.close();
+					if (fw != null)
+						fw.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+}

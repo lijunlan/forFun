@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+<meta charset="utf-8">
+<title>AppManager</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="1.0">
+<meta name="author" content="sdll18">
+
+<!--link rel="stylesheet/less" href="less/bootstrap.less" type="text/css" /-->
+<!--link rel="stylesheet/less" href="less/responsive.less" type="text/css" /-->
+<!--script src="js/less-1.3.3.min.js"></script-->
+<!--append ‘#!watch’ to the browser URL, then refresh the page. -->
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+  <![endif]-->
+
+<!-- Fav and touch icons -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144"
+	href="img/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114"
+	href="img/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72"
+	href="img/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed"
+	href="img/apple-touch-icon-57-precomposed.png">
+<link rel="shortcut icon" href="img/favicon.png">
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/cookie.js"></script>
+<script type="text/javascript" src="js/jsonutil.js"></script>
+<script type="text/javascript">
+	$(document)
+			.ready(
+					function() {
+						if(getCookie("user_id")==null){
+							alert("请先登录！");
+							self.location='login.html'; 
+						}
+						$
+								.ajax({
+									cache : true,
+									type : "POST",
+									url : "/UMediaService/manage",
+									data : "{'style':'user','method':'get_user_info','user_id':'"
+											+ getCookie("user_id") + "'}",
+									async : false,
+									error : function(request) {
+										//alert("Connection error");
+									},
+									success : function(data, textStatu) {
+										var json = eval("(" + data + ")");
+										$("#username").html(
+												getValueFromJson(json,
+														"username"));
+										$("#name2").html(
+												getValueFromJson(json, "name"));
+										$("#name").val(
+												getValueFromJson(json, "name"));
+										$("#address").html(
+												getValueFromJson(json,
+														"address"));
+										$("#sex").html(
+												getValueFromJson(json, "sex"));
+										$("#realname").html(
+												getValueFromJson(json,
+														"realname"));
+										$("#birthday").html(
+												getValueFromJson(json,
+														"birthday"));
+										$("#bloodtype").html(
+												getValueFromJson(json,
+														"bloodType"));
+										$("#introduce").html(
+												getValueFromJson(json,
+														"introduce"));
+										$("#phone")
+												.html(
+														getValueFromJson(json,
+																"phone"));
+										$("#email")
+												.html(
+														getValueFromJson(json,
+																"email"));
+										$("#qq").html(
+												getValueFromJson(json, "qq"));
+									}
+								});
+					});
+	function logout(){
+		delCookie("user_id");
+		self.location='login.html'; 
+	}
+</script>
+</head>
+<body style="background: #000">
+	<div class="container" align="center"
+		style="width: 100%; margin: 0px; padding: 0px;">
+		<table style="width: 1102px; height: 72px; margin: 0px; padding: 0px">
+			<tr height="72px"
+				style="background-color: #e6edec; padding: 0px; margin: 0px">
+				<td width="102px" style="padding: 0px; margin: 0px">
+					<p style="text-align: center; margin: 0px; padding: 0px">
+						<img
+							style="width: 102px; vertical-align: middle; margin: 0px; padding: 0px"
+							src="./img/house.jpg"></img>
+					</p>
+				</td>
+				<td width="780px" style="padding: 0px; margin: 0px">
+					<h3 style="color: #869b97; margin-left: 40px; margin-bottom: 22px">Mangement
+						Interface</h3>
+				</td>
+				<td width="220px" style="padding: 0px; margin: 0px">
+					<p class="text-center" style="color: #577670;">
+						<img class="img-circle" src="http://lorempixel.com/50/50/"
+							style="margin-top: 8px"></img>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="name2" onClick="logout()"></a>
+					</p>
+				</td>
+			</tr>
+		</table>
+		<table style="width: 1102px; height: 600px; margin: 0px; padding: 0px">
+			<tr height="680px" style="padding: 0px; margin: 0px">
+				<th width="102px" style="background: #323232;"><ul
+						style="list-style-type: none; height: 678px; margin: -1px; margin-top: -2px; border-width: 0px; padding: 0px">
+						<li><a href="#"> <img
+								style="width: 100%; vertical-align: middle; margin: 0px; padding: 0px"
+								src="./img/male_select.jpg"></img>
+						</a></li>
+						<li><a href="control_app.html"> <img
+								style="width: 100%; vertical-align: middle; margin: 0px; padding: 0px"
+								src="./img/shirt.jpg"></img>
+						</a></li>
+						<li><a href="#"> <img
+								style="width: 100%; vertical-align: middle; margin: 0px; padding: 0px"
+								src="./img/message.jpg"></img>
+						</a></li>
+						<li><a href="#"> <img
+								style="width: 100%; vertical-align: middle; margin: 0px; padding: 0px"
+								src="./img/geer.jpg"></img>
+						</a></li>
+						<li><a href="#"> <img
+								style="width: 100%; vertical-align: middle; margin: 0px; padding: 0px"
+								src="./img/numbers.jpg"></img>
+						</a></li>
+						<li><a href="#"> <img
+								style="width: 100%; vertical-align: middle; margin: 0px; padding: 0px"
+								src="./img/calender.jpg"></img>
+						</a></li>
+					</ul></th>
+				<th width="1000px" style="background: #fff">
+					<table style="width: 600px; height: 600px; margin-left: 60px;">
+						<tr style="height: 40px">
+							<th style="width: 100px; background: #2eb398;"><p
+									align="center" style="color: #fff; margin-top: 8px">基本信息</p></th>
+							<th style="width: 400px"><p align="center"
+									style="color: #c4cdcb; margin-top: 8px">------------------------------------------------------------------</p></th>
+							<th style="width: 100px; background: #2eb398;"><p
+									align="center" style="color: #fff; margin-top: 8px">编辑</p></th>
+						</tr>
+						<tr style="height: 30px">
+							<td><p class="showinfo-lable" align="right">用户名</p></td>
+							<td><p class="showinfo-info" id="username"></p></td>
+							<td></td>
+						</tr>
+						<tr style="height: 30px">
+							<td><p class="showinfo-lable" align="right">昵称</p></td>
+							<td><input class="showinfo-info-input" id="name"></input></td>
+							<td></td>
+						</tr>
+						<tr style="height: 30px">
+							<td><p class="showinfo-lable" align="right">真实姓名</p></td>
+							<td><p class="showinfo-info" id="realname"></p></td>
+							<td></td>
+						</tr>
+						<tr style="height: 30px">
+							<td><p class="showinfo-lable" align="right">所在地</p></td>
+							<td><p class="showinfo-info" id="address"></p></td>
+							<td></td>
+						</tr>
+						<tr style="height: 30px">
+							<td><p class="showinfo-lable" align="right">性别</p></td>
+							<td><p class="showinfo-info" id="sex"></p></td>
+							<td></td>
+						</tr>
+						<tr style="height: 30px">
+							<td><p class="showinfo-lable" align="right">生日</p></td>
+							<td><p class="showinfo-info" id="birthday"></p></td>
+							<td></td>
+						</tr>
+						<tr style="height: 30px">
+							<td><p class="showinfo-lable" align="right">血型</p></td>
+							<td><p class="showinfo-info" id="bloodtype"></p></td>
+							<td></td>
+						</tr>
+						<tr style="height: 30px">
+							<td><p class="showinfo-lable" align="right">简介</p></td>
+							<td><p class="showinfo-info" id="introduce"></p></td>
+							<td></td>
+						</tr>
+						<tr></tr>
+						<tr style="height: 40px">
+							<th style="width: 100px; background: #2eb398;"><p
+									align="center" style="color: #fff; margin-top: 8px">联系信息</p></th>
+							<th style="width: 400px"><p align="center"
+									style="color: #c4cdcb; margin-top: 8px">------------------------------------------------------------------</p></th>
+							<th style="width: 100px; background: #2eb398;"><p
+									align="center" style="color: #fff; margin-top: 8px">编辑</p></th>
+						</tr>
+						<tr style="height: 30px">
+							<td><p class="showinfo-lable" align="right">电话</p></td>
+							<td><p class="showinfo-info" id="phone"></p></td>
+							<td></td>
+						</tr>
+						<tr style="height: 30px">
+							<td><p class="showinfo-lable" align="right">E-mail</p></td>
+							<td><p class="showinfo-info" id="email"></p></td>
+							<td></td>
+						</tr>
+						<tr style="height: 30px">
+							<td><p class="showinfo-lable" align="right">QQ</p></td>
+							<td><p class="showinfo-info" id="qq"></p></td>
+							<td></td>
+						</tr>
+						<tr style="height: 40px">
+							<th style="width: 100px;"></th>
+							<th style="width: 400px"><p align="center"
+									style="color: #c4cdcb; margin-top: 8px">------------------------------------------------------------------</p></th>
+							<th style="width: 100px;"></th>
+						</tr>
+						<tr></tr>
+					</table>
+				</th>
+			</tr>
+		</table>
+		<table style="width: 1102px; height: 28px; margin: 0px; padding: 0px">
+			<tr height="28px" style="background: #222222">
+				<th width="1102px"><h6 style="color: #454545" align="center">©
+						Copyright 2014 by Melon Studio</h6></th>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+<meta charset="utf-8">
+<title>AppManager</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="1.0">
+<meta name="author" content="sdll18">
+
+<!--link rel="stylesheet/less" href="less/bootstrap.less" type="text/css" /-->
+<!--link rel="stylesheet/less" href="less/responsive.less" type="text/css" /-->
+<!--script src="js/less-1.3.3.min.js"></script-->
+<!--append ‘#!watch’ to the browser URL, then refresh the page. -->
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+  <![endif]-->
+
+<!-- Fav and touch icons -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144"
+	href="img/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114"
+	href="img/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72"
+	href="img/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed"
+	href="img/apple-touch-icon-57-precomposed.png">
+<link rel="shortcut icon" href="img/favicon.png">
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/cookie.js"></script>
+<script type="text/javascript" src="js/jsonutil.js"></script>
+<script type="text/javascript">
+	$(document)
+			.ready(
+					function() {
+						if (getCookie("user_id") == null) {
+							alert("请先登录！");
+							self.location = 'login.html';
+						}
+						$
+								.ajax({
+									cache : true,
+									type : "POST",
+									url : "/UMediaService/manage",
+									data : "{'style':'user','method':'get_user_info','user_id':'"
+											+ getCookie("user_id") + "'}",
+									async : false,
+									error : function(request) {
+										//alert("Connection error");
+									},
+									success : function(data, textStatu) {
+										var json = eval("(" + data + ")");
+										$("#name2").html(
+												getValueFromJson(json, "name"));
+									}
+								});
+						$
+								.ajax({
+									cache : true,
+									type : "POST",
+									url : "/UMediaService/manage",
+									data : "{'style':'application','method':'get_app_list','user_id':'"
+											+ getCookie("user_id") + "'}",
+									async : false,
+									error : function(request) {
+										//alert("Connection error");
+									},
+									success : function(data, textStatu) {
+										var json = eval("(" + data + ")");
+										if (getValueFromJson(json, "state") == "error") {
+											alert(getValueFromJson(json, "msg"));
+											self.location = 'main.html';
+										}
+										var inhtml = "";
+										$
+												.each(
+														json,
+														function(index, value) {
+															inhtml = inhtml
+																	+ "<li>"
+																	+ "<div class='div-inline'"
+										+	"style='margin-left: 40px; margin-top: 40px; width: 150px; height: 140px;'>"
+																	+ "<img class='img-rounded' style='width:140px;height:140px;' src='"
+																	+ value.url
+																	+ "'/>"
+																	+ "</div>"
+																	+ "<div class='div-inline' style='width: 400px; height: 200px'>"
+																	+ "	<div style='margin-left: 30px; margin-top: 70px'>"
+																	+ "		<h4 style='margin-left: 30px; color: #869b97;'>"
+																	+ value.name
+																	+ "</h4>"
+																	+ "		<h4 style='margin-left: 30px; color: #869b97;'>"
+																	+ value.time
+																	+ "</h4>"
+																	+ "	</div>"
+																	+ "</div>"
+																	+ "<div class='div-inline' style='width: 300px; height: 200px;'>"
+																	+ "	<button"
+																	+ "		style='background: #2eb398; border-width: 0px; width: 80px; height: 30px; margin-left: 30px; margin-top: 80px' onclick='getInfo("
+																	+ value.id
+																	+ ")'>查看</button>"
+																	+ "	<button onclick='removeApp("
+																	+ value.id
+																	+ ")'"
+																	+ "		style='background: #fff; border-width: 0px; width: 80px; height: 30px; margin-left: 30px'>删除</button>"
+																	+ "</div>"
+																	+ "</li>";
+														});
+										inhtml = inhtml
+												+ "<li>"
+												+ "<div class='div-inline' style='width: 300px; height: 60px;' align='center'>"
+												+ "<button onclick='createApp()'" 
+												+ "	style='background: #2eb398; border-width: 0px; width: 200px; height: 30px; margin-left: 30px; margin-top: 80px'>创建一个APP</button>"
+												+ "</div>" + "</li>";
+										$("#app_list").html(inhtml);
+									}
+								});
+					});
+	function createApp() {
+		self.location = 'create.html';
+	}
+	function removeApp(app_id) {
+		$.ajax({
+			cache : true,
+			type : "POST",
+			url : "/UMediaService/manage",
+			data : "{'style':'application','method':'delete','app_id':'"
+					+ app_id + "'}",
+			async : false,
+			error : function(request) {
+				//alert("Connection error");
+			},
+			success : function(data, textStatu) {
+				location.reload(true);
+			}
+		});
+	}
+	function getInfo(app_id) {
+		setCookie("app_id",app_id);
+		self.location = 'app_info.html';
+		window.open("http://www.sdll18.com/UMediaService/Manager/app_info.html"); 
+	}
+	function logout() {
+		delCookie("user_id");
+		self.location = 'login.html';
+	}
+</script>
+</head>
+<body style="background: #000">
+	<div class="container" align="center"
+		style="width: 100%; margin: 0px; padding: 0px;">
+		<table style="width: 1102px; height: 72px; margin: 0px; padding: 0px">
+			<tr height="72px"
+				style="background-color: #e6edec; padding: 0px; margin: 0px">
+				<td width="102px" style="padding: 0px; margin: 0px">
+					<p style="text-align: center; margin: 0px; padding: 0px">
+						<img
+							style="width: 102px; vertical-align: middle; margin: 0px; padding: 0px"
+							src="./img/house.jpg"></img>
+					</p>
+				</td>
+				<td width="780px" style="padding: 0px; margin: 0px">
+					<h3 style="color: #869b97; margin-left: 40px; margin-bottom: 22px">Mangement
+						Interface</h3>
+				</td>
+				<td width="220px" style="padding: 0px; margin: 0px">
+					<p class="text-center" style="color: #577670;">
+						<img class="img-circle" src="http://lorempixel.com/50/50/"
+							style="margin-top: 8px"></img>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+							id="name2" onClick="logout()"></a>
+					</p>
+				</td>
+			</tr>
+		</table>
+		<table style="width: 1102px; height: 600px; margin: 0px; padding: 0px">
+			<tr height="680px" style="padding: 0px; margin: 0px">
+				<th width="102px" style="background: #323232;">
+					<ul
+						style="list-style-type: none; height: 678px; margin: -1px; margin-top: -2px; border-width: 0px; padding: 0px">
+						<li><a href="control_info.html"> <img
+								style="width: 100%; vertical-align: middle; margin: 0px; padding: 0px"
+								src="./img/male.jpg"></img>
+						</a></li>
+						<li><a href="#"> <img
+								style="width: 100%; vertical-align: middle; margin: 0px; padding: 0px"
+								src="./img/shirt_select.jpg"></img>
+						</a></li>
+						<li><a href="#"> <img
+								style="width: 100%; vertical-align: middle; margin: 0px; padding: 0px"
+								src="./img/message.jpg"></img>
+						</a></li>
+						<li><a href="#"> <img
+								style="width: 100%; vertical-align: middle; margin: 0px; padding: 0px"
+								src="./img/geer.jpg"></img>
+						</a></li>
+						<li><a href="#"> <img
+								style="width: 100%; vertical-align: middle; margin: 0px; padding: 0px"
+								src="./img/numbers.jpg"></img>
+						</a></li>
+						<li><a href="#"> <img
+								style="width: 100%; vertical-align: middle; margin: 0px; padding: 0px"
+								src="./img/calender.jpg"></img>
+						</a></li>
+					</ul>
+				</th>
+				<th width="1000px" style="background: #fff">
+					<div style="width: 998px; height: 668px; overflow: auto;">
+						<ul class="showapps" id="app_list"
+							style="width: 982px; padding-top: 10px; height: 668px; list-style-type: none;">
+							<li>
+								<div class="div-inline" style="width: 300px; height: 60px;" align="center">
+									<button onclick="createApp()"
+										style="background: #2eb398; border-width: 0px; width: 200px; height: 30px; margin-left: 30px; margin-top: 80px">创建一个APP</button>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</th>
+			</tr>
+		</table>
+		<table style="width: 1102px; height: 28px; margin: 0px; padding: 0px">
+			<tr height="28px" style="background: #222222">
+				<th width="1102px"><h6 style="color: #454545" align="center">©
+						Copyright 2014 by Melon Studio</h6></th>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

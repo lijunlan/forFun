@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"
+		scope="singleton">
+		<property name="configLocation" value="classpath:hibernate.cfg.xml">
+		</property>
+		<property name="annotatedClasses">
+			<list>
+				<value>com.ivypro.Persistant.Order</value>
+				<value>com.ivypro.Persistant.User</value>
+				<value>com.ivypro.Persistant.UserMark</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- !!!!!Dao!!!!! -->
+	<bean id="userDao" class="com.ivypro.Dao.Impl.UserDaoImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="orderDao" class="com.ivypro.Dao.Impl.OrderDaoImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="userMarkDao" class="com.ivypro.Dao.Impl.UserMarkDaoImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+
+	<!--!!!!Data Service!!!!! -->
+	<bean id="userService" class="com.ivypro.Service.Impl.UserServiceImpl">
+		<property name="userDao">
+			<ref local="userDao" />
+		</property>
+	</bean>
+
+	<bean id="orderService" class="com.ivypro.Service.Impl.OrderServiceImpl">
+		<property name="userDao">
+			<ref local="userDao" />
+		</property>
+		<property name="orderDao">
+			<ref local="orderDao" />
+		</property>
+	</bean>
+
+	<bean id="userMarkService" class="com.ivypro.Service.Impl.UserMarkServiceImpl">
+		<property name="userMarkDao">
+			<ref local="userMarkDao" />
+		</property>
+		<property name="userDao">
+			<ref local="userDao" />
+		</property>
+	</bean>
+
+	<!--!!!!Handle Service!!!!! -->
+	<bean id="changeOrderService" class="com.ivypro.Handle.Service.ChangeOrderService">
+		<property name="userMarkService">
+			<ref local="userMarkService" />
+		</property>
+		<property name="orderService">
+			<ref local="orderService" />
+		</property>
+	</bean>
+
+	<bean id="createOrderService" class="com.ivypro.Handle.Service.CreateOrderService">
+		<property name="userMarkService">
+			<ref local="userMarkService" />
+		</property>
+		<property name="orderService">
+			<ref local="orderService" />
+		</property>
+	</bean>
+
+	<bean id="endOrderService" class="com.ivypro.Handle.Service.EndOrderService">
+		<property name="userMarkService">
+			<ref local="userMarkService" />
+		</property>
+		<property name="orderService">
+			<ref local="orderService" />
+		</property>
+	</bean>
+
+	<bean id="getUserInfoService" class="com.ivypro.Handle.Service.GetUserInfoService">
+		<property name="userMarkService">
+			<ref local="userMarkService" />
+		</property>
+	</bean>
+
+	<!-- <bean id="getUserListService" class="com.ivypro.Handle.Service.GetUserListService"> 
+		<property name="userService"> <ref local="userService" /> </property> </bean> -->
+
+	<bean id="loginService" class="com.ivypro.Handle.Service.LoginService">
+		<property name="userMarkService">
+			<ref local="userMarkService" />
+		</property>
+		<property name="userService">
+			<ref local="userService" />
+		</property>
+	</bean>
+
+	<bean id="getOrderListService" class="com.ivypro.Handle.Service.GetOrderListService">
+		<property name="userMarkService">
+			<ref local="userMarkService" />
+		</property>
+		<property name="orderService">
+			<ref local="orderService" />
+		</property>
+	</bean>
+
+	<bean id="registerService" class="com.ivypro.Handle.Service.RegisterService">
+		<property name="userMarkService">
+			<ref local="userMarkService" />
+		</property>
+		<property name="userService">
+			<ref local="userService" />
+		</property>
+	</bean>
+
+	<bean id="managerLoginService" class="com.ivypro.Handle.Service.ManagerLoginService">
+		<property name="userMarkService">
+			<ref local="userMarkService" />
+		</property>
+		<!-- <property name="userService"> <ref local="userService" /> </property> -->
+	</bean>
+
+	<bean id="logoutService" class="com.ivypro.Handle.Service.LogoutService">
+		<property name="userMarkService">
+			<ref local="userMarkService" />
+		</property>
+	</bean>
+
+
+</beans>

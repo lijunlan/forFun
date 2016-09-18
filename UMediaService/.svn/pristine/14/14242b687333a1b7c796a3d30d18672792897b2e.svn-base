@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"
+		scope="singleton">
+		<property name="configLocation" value="classpath:hibernate.cfg.xml">
+		</property>
+		<property name="annotatedClasses">
+			<list>
+				<value>com.sdll18.umedia.Persistant.User</value>
+				<value>com.sdll18.umedia.Persistant.Application</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- !!!!!Dao!!!!! -->
+	<bean id="userDao" class="com.sdll18.umedia.Dao.Impl.UserDaoImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="applicationDao" class="com.sdll18.umedia.Dao.Impl.ApplicationDaoImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+
+	<!-- !!!!!Data Service!!!!! -->
+
+	<bean id="userService" class="com.sdll18.umedia.Service.Impl.UserServiceImpl">
+		<property name="userDao">
+			<ref local="userDao" />
+		</property>
+	</bean>
+
+	<bean id="applicationService" class="com.sdll18.umedia.Service.Impl.ApplicationServiceImpl">
+		<property name="applicationDao">
+			<ref local="applicationDao" />
+		</property>
+	</bean>
+
+	<!-- !!!!!Manage Service!!!!! -->
+
+	<bean id="downUserInfoService" class="com.sdll18.umedia.Deal.Service.DownUserInfoService">
+		<property name="userService">
+			<ref local="userService" />
+		</property>
+	</bean>
+
+	<bean id="downAppListService" class="com.sdll18.umedia.Deal.Service.DownAppListService">
+		<property name="applicationService">
+			<ref local="applicationService" />
+		</property>
+	</bean>
+
+	<bean id="downAppInfoService" class="com.sdll18.umedia.Deal.Service.DownAppInfoService">
+		<property name="applicationService">
+			<ref local="applicationService" />
+		</property>
+	</bean>
+
+	<bean id="upAppService" class="com.sdll18.umedia.Deal.Service.UpAppService">
+		<property name="userService">
+			<ref local="userService" />
+		</property>
+		<property name="applicationService">
+			<ref local="applicationService" />
+		</property>
+	</bean>
+
+	<bean id="deleteAppService" class="com.sdll18.umedia.Deal.Service.DeleteAppService">
+		<property name="applicationService">
+			<ref local="applicationService" />
+		</property>
+	</bean>
+
+	<bean id="changeUserInfoService" class="com.sdll18.umedia.Deal.Service.ChangeUserInfoService">
+		<property name="userService">
+			<ref local="userService" />
+		</property>
+	</bean>
+</beans>

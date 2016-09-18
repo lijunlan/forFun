@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+<meta charset="utf-8">
+<title>AppManager</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="1.0">
+<meta name="author" content="sdll18">
+
+<!--link rel="stylesheet/less" href="less/bootstrap.less" type="text/css" /-->
+<!--link rel="stylesheet/less" href="less/responsive.less" type="text/css" /-->
+<!--script src="js/less-1.3.3.min.js"></script-->
+<!--append ‘#!watch’ to the browser URL, then refresh the page. -->
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+  <![endif]-->
+
+<!-- Fav and touch icons -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144"
+	href="img/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114"
+	href="img/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72"
+	href="img/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed"
+	href="img/apple-touch-icon-57-precomposed.png">
+<link rel="shortcut icon" href="img/favicon.png">
+<link rel="stylesheet" href="./kindeditor/themes/default/default.css" />
+<link rel="stylesheet" href="./kindeditor/plugins/code/prettify.css" />
+<script charset="utf-8" src="./kindeditor/kindeditor.js"></script>
+<script charset="utf-8" src="./kindeditor/lang/zh_CN.js"></script>
+<script charset="utf-8" src="./kindeditor/plugins/code/prettify.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/plupload/js/plupload.full.js"></script>
+<script type="text/javascript"
+	src="js/plupload/js/jquery.plupload.queue/jquery.plupload.queue.js"></script>
+<script type="text/javascript" src="js/plupload/js/i18n/cn.js"></script>
+<script type="text/javascript" src="functional_js/Base64.js"></script>
+<style type="text/css">
+@import
+	url(js/plupload/js/jquery.plupload.queue/css/plupload.bootstrap.css);
+</style>
+<script type="text/javascript" src="js/jsonutil.js"></script>
+<script type="text/javascript" src="functional_js/upPassage.js"></script>
+</head>
+<script>
+	var editor_text;
+	var editor_image;
+	KindEditor.ready(function(K) {
+		editor_text = K.create('textarea[name="content_text"]', {
+			uploadJson : './upload_json.jsp',
+			fileManagerJson : './file_manager_json.jsp',
+			allowFileManager : true
+		});
+		editor_image = K.create('textarea[name="content_image"]', {
+			uploadJson : './upload_json.jsp',
+			fileManagerJson : './file_manager_json.jsp',
+			allowFileManager : true
+		});
+	});
+</script>
+<script type="text/javascript">
+	var j16 = jQuery.noConflict();
+	j16(document).ready(function() {
+		getUserInfo();
+	});
+
+	// Convert divs to queue widgets when the DOM is ready
+	j16(function() {
+		j16("#uploader").pluploadQueue({
+			// General settings
+			runtimes : 'html5,flash,silverlight,html4',
+			url : '/AppFactoryService/upimage',
+			max_file_size : '2mb',
+			unique_names : true,
+			multiple_queues : false,
+			//一次只能选择一个图片
+			multi_selection : false,
+			dragdrop : true,
+			chunk_size : '2mb',
+			// Specify what files to browse for
+			filters : [ {
+				title : "图片",
+				extensions : "jpg,bmp,png,gif"
+			} ],
+			// Flash settings
+			flash_swf_url : 'js/plupload/js/plupload.flash.swf',
+			// Silverlight settings
+			silverlight_xap_url : 'js/plupload/js/plupload.silverlight.xap'
+		});
+
+		var upl = j16("#uploader").pluploadQueue();
+		upl.bind('FileUploaded', function(up, file, res) {
+			try {
+				var json = jQuery.parseJSON(res['response']);
+				j16('#imageUrl').val(json['url']);
+			} catch (e) {
+				alert(e);
+			}
+			//alert(file.name + " uploaded!");
+			//a
+		});
+
+		j16("#uploader").pluploadQueue();
+		upl.bind('FilesAdded', function(up, files) {
+			if (up.files.length > 1) {
+				alert("您只能上传一张图片！");
+				up.removeFile(files[0]);
+			}
+		});
+
+		j16('#form')
+				.submit(
+						function(e) {
+							var uploader = $('#uploader').pluploadQueue();
+							alert(uploader.files.length);
+							if (uploader.files.length > 0
+									&& uploader.files.length < 2) {
+								// When all files are uploaded submit form
+								uploader
+										.bind(
+												'StateChanged',
+												function() {
+													if (uploader.files.length === (uploader.total.uploaded + uploader.total.failed)) {
+														j16('form')[1].submit();
+													}
+												});
+								uploader.start();
+							} else if (uploader.files.length > 0) {
+								alert("only one file is allowed!");
+							} else {
+								alert('you should choose one file!');
+							}
+							return false;
+						});
+	});
+</script>
+<script type="text/javascript">
+	function MM_swapImgRestore() { //v3.0
+		var i, x, a = document.MM_sr;
+		for (i = 0; a && i < a.length && (x = a[i]) && x.oSrc; i++)
+			x.src = x.oSrc;
+	}
+	function MM_preloadImages() { //v3.0
+		var d = document;
+		if (d.images) {
+			if (!d.MM_p)
+				d.MM_p = new Array();
+			var i, j = d.MM_p.length, a = MM_preloadImages.arguments;
+			for (i = 0; i < a.length; i++)
+				if (a[i].indexOf("#") != 0) {
+					d.MM_p[j] = new Image;
+					d.MM_p[j++].src = a[i];
+				}
+		}
+	}
+
+	function MM_findObj(n, d) { //v4.01
+		var p, i, x;
+		if (!d)
+			d = document;
+		if ((p = n.indexOf("?")) > 0 && parent.frames.length) {
+			d = parent.frames[n.substring(p + 1)].document;
+			n = n.substring(0, p);
+		}
+		if (!(x = d[n]) && d.all)
+			x = d.all[n];
+		for (i = 0; !x && i < d.forms.length; i++)
+			x = d.forms[i][n];
+		for (i = 0; !x && d.layers && i < d.layers.length; i++)
+			x = MM_findObj(n, d.layers[i].document);
+		if (!x && d.getElementById)
+			x = d.getElementById(n);
+		return x;
+	}
+
+	function MM_swapImage() { //v3.0
+		var i, j = 0, x, a = MM_swapImage.arguments;
+		document.MM_sr = new Array;
+		for (i = 0; i < (a.length - 2); i += 3)
+			if ((x = MM_findObj(a[i])) != null) {
+				document.MM_sr[j++] = x;
+				if (!x.oSrc)
+					x.oSrc = x.src;
+				x.src = a[i + 2];
+			}
+	}
+</script>
+<body style="background-color: #323232">
+	<div class="container" style="width: 100%" align="center">
+		<table width="997" style="width: 1000px">
+			<tr height="80px">
+				<th width="43%" bgcolor="#323232"><p>&nbsp;</p>
+					<p>
+						<a href="#" onMouseOut="MM_swapImgRestore()"
+							onMouseOver="MM_swapImage('Image25','','img/HOMEPAGE_g.png',1)"><img
+							src="img/HOMEPAGE_w.png" alt="" width="73" height="18"
+							id="Image25"> </a><img src="img/SEND_g.png" width="73"
+							height="18" alt="" /></a> <a href="../statics/show.html"
+							style="color: #fff; font-size: 10px" target="_Blank">&nbsp;STATICS</a>
+					</p> &nbsp;
+				<th width="10%"></th>
+				<th width="47%"><p>&nbsp;</p>
+					<p>&nbsp;</p></th>
+			</tr>
+		</table>
+	</div>
+	<div class="container" style="width: 100%; background-color: #2eb398"
+		align="center">
+		<table
+			style="width: 1000px; background-image: url('./img/zbg.jpg'); background-repeat: no-repeat">
+			<tr height="200px">
+				<th>
+					<p style="text-align: center">
+						<img height="180px" src="./img/ll.jpg"></img>
+					</p>
+				</th>
+				<th>
+					<div id="icon" style="margin-left: 140px; margin-top: -36px">
+
+					</div>
+				</th>
+				<th>
+					<h2 id="ownName" style="color: #ffffff"></h2>
+					<h4 id="discription" style="color: #20816d"></h4>
+					<h6 style="color: #ffffff"></h6>
+				</th>
+				<th>
+					<p style="text-align: center">
+						<img height="180px" src="./img/ll.jpg"></img>
+					</p>
+				</th>
+			</tr>
+		</table>
+	</div>
+	<div class="container"
+		style="margin-top: 10px; width: 1100px; height: 2px; background: #2b2b2b;"></div>
+	<div class="container" style="width: 1000px">
+		<h1 style="color: #ffffff">Release Information</h1>
+		<h3 style="color: #ffffff">You can release words,pictures:</h3>
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#tab1" data-toggle="tab"
+				style="background: #323232"><img src="./img/writepic.png" /></a></li>
+			<li><a href="#tab2" data-toggle="tab"
+				style="background: #323232"><img src="./img/photopic.png" /></a></li>
+			<li><a href="#tab3" data-toggle="tab"
+				style="background: #323232"><img src="./img/recompic.png" /></a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane active" id="tab1" style="margin-top: 6px">
+				<!-- <textarea id="input_passage" class="form-control" rows="7"
+					style="resize: none; border-radius: 0px; border-style: hidden; margin-top: 6px; background: #454545; color: #888888"
+					placeholder="write something..."></textarea> -->
+				<input id="textTitle" class="form-control" type="text"
+					placeholder="Input the title">
+				<form>
+					<textarea name="content_text"
+						style="width: 970px; height: 270px; visibility: hidden;"></textarea>
+				</form>
+				<button class="btn pull-right" onclick="sendPassageMsg()"
+					style="margin-top: 6px; width: 100px; border-radius: 0px; background: #2eb398; color: #ffffff">Send</button>
+			</div>
+			<div class="tab-pane" id="tab2" style="margin-top: 6px">
+				<input id="imageTitle" class="form-control" type="text"
+					placeholder="Input the title"> <label for="imgFile"
+					style="margin-top: 6px; color: #ffffff">Choose a picture to
+					be the icon</label> <input id="imageUrl" class="form-control" type="text"
+					placeholder="Choose a picture…" readonly> <a
+					id="modal-531306" href="#modal-container-531306"
+					class="btn pull-right"
+					style="margin-top: 8px; margin-bottom: 6px; width: 100px; border-radius: 0px; background: #2eb398; color: #ffffff"
+					role="button" class="btn btn-primary" data-toggle="modal">Select</a>
+				<form>
+					<textarea name="content_image"
+						style="width: 970px; height: 270px; visibility: hidden;"></textarea>
+				</form>
+				<button type="submit" class="btn pull-right"
+					style="margin-top: 8px; width: 100px; border-radius: 0px; background: #2eb398; color: #ffffff"
+					onClick="sendImageMsg()">Submit</button>
+			</div>
+			<div class="tab-pane" id="tab3" style="margin-top: 6px">
+				<div style="width: 970px; height: 50px" align="center">
+					<p>
+						<button type="submit" class="btn pull-right" s
+							style="width: 970px; height: 50px; background: #2eb398; color: #ffffff;"
+							onclick="get_recommend_news()">Get Recommend News</button>
+					</p>
+				</div>
+				<ul id="recommend_news"
+					style="list-style-type: none; height: 480px; width: 970px">
+
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="container" style="width: 1000px; vertical-align: bottom;"
+		align="center">
+		<h6 style="color: #454545">© Copyright 2014 by Melon Studio</h6>
+	</div>
+	<div class="modal fade" id="modal-container-531306" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">×</button>
+					<h4 class="modal-title" id="myModalLabel">上传图片</h4>
+				</div>
+				<div class="modal-body">
+					<div class="container-fluid">
+						<div class="row-fluid">
+							<div class="span12">
+								<div class="alert alert-success">
+									<button type="button" class="close" data-dismiss="alert">×</button>
+									<h6 style="">您可以上传一张图片</h6>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="uploader">
+						<p>您的浏览器未安装 Flash, Silverlight, Gears, BrowserPlus 或者支持 HTML5
+							.</p>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button data-dismiss="modal" type="button" class="btn btn-primary"
+						style="background: #2eb398; color: #ffffff">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+

@@ -1,0 +1,127 @@
+
+<html>
+<head>
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/works.css">
+
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="bootstrap/js/jquery.min.js"></script>
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="bootstrap/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+body {
+	background-image: url('img/homepage_background3.jpg');
+	background-attachment: fixed;
+}
+
+h1 {
+	text-align: center
+}
+</style>
+<script type="text/javascript">
+	function getQueryString(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null)
+			return unescape(r[2]);
+		return null;
+	}
+	$(document)
+			.ready(
+					function() {
+						var category = getQueryString("category");
+						if (category == 1) {
+							category = "儿童";
+						} else if (category == 2) {
+							category = "婚礼";
+						} else if (category == 3) {
+							category = "写真";
+						} else if (category == 4) {
+							category = "孕妇";
+						} else if (category == 5) {
+							category = "亲子";
+						} else if (category == 6) {
+							category = "旅拍";
+						}
+						$('#category').html(category);
+						$
+								.ajax({
+									cache : true,
+									type : "POST",
+									url : "/SpringShootService/getalbum",
+									data : "{'category':'" + category + "'}",
+									async : false,
+									error : function(request) {
+										alert("Connection error");
+									},
+									success : function(data, textStatu) {
+										var html = "";
+										var json = eval("(" + data + ")");
+										$
+												.each(
+														json,
+														function(index, value) {
+															html = html
+																	+ "<li class=\"span4\">"
+																	+ "<a href=\"works_class_photo1.html?album="
+																	+ value.id
+																	+ "&category="
+																	+ getQueryString("category")
+																	+ "\" class=\"thumbnail\">"
+																	+ "<img alt=\"300*200\" style=\"width: 133px; height: 200px;\""
+		+ "	src=\""
+		+ value.url
+		+ "\">"
+																	+ "</a>"
+																	+ "</li>";
+														});
+										$('#photos').html(html);
+									}
+								});
+					});
+</script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="span4">
+				<img alt="" src="img/title.png" />
+			</div>
+			<div class="span1"></div>
+			<div class="span7">
+				</br> </br> </br> </br> </br>
+				<ul class="nav nav-tabs">
+					<li><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首页&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+					</li>
+					<li class="active"><a href="#">&nbsp;&nbsp;作品展示&nbsp;&nbsp;</a>
+					</li>
+					<li><a href="#">&nbsp;&nbsp;服务介绍&nbsp;&nbsp;</a></li>
+					<li><a href="#">&nbsp;&nbsp;招纳贤士&nbsp;&nbsp;</a></li>
+					<li><a href="#">&nbsp;&nbsp;联系方式&nbsp;&nbsp;</a></li>
+
+				</ul>
+			</div>
+		</div>
+
+		<ul class="breadcrumb">
+			<li><a href="works.html">作品展示</a> <span class="divider">/</span></li>
+			<li id="category">儿童</li>
+		</ul>
+
+		<ul class="thumbnails" id="photos">
+		</ul>
+
+		</br>
+		<div class="copyright">
+			春天摄影工作室&nbsp;&nbsp;版权所有&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+				href="http://www.springphoto.cn/">www.springphoto.cn</a> All Right
+			Reserved 2014.
+		</div>
+
+	</div>
+</body>
+</html>

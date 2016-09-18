@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+<meta charset="utf-8">
+<title>Ivy Pro</title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0,maximum-scale=1">
+<meta name="description" content="1.0">
+<meta name="author" content="sdll18">
+
+<!--link rel="stylesheet/less" href="less/bootstrap.less" type="text/css" /-->
+<!--link rel="stylesheet/less" href="less/responsive.less" type="text/css" /-->
+<!--script src="js/less-1.3.3.min.js"></script-->
+<!--append ‘#!watch’ to the browser URL, then refresh the page. -->
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+  <![endif]-->
+
+<!-- Fav and touch icons -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144"
+	href="image/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="114x114"
+	href="image/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="72x72"
+	href="image/favicon.ico">
+<link rel="apple-touch-icon-precomposed" href="image/favicon.ico">
+<link rel="shortcut icon" href="image/favicon.ico">
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/cookie.js"></script>
+<script type="text/javascript" src="js/jsonutil.js"></script>
+<script type="text/javascript" src="js/get.js"></script>
+<script type="text/javascript" src="js/head.js"></script>
+<script type="text/javascript" src="js/showorder.js"></script>
+</head>
+<body>
+	<div class=container-fluid style="min-width: 1000px; height: 760px;">
+		<div class="row clearfix" style="margin-right: 0px;">
+			<div class="col-md-12 column" align="center">
+				<div style="margin-top: 170px;">
+					<table class="table table-striped table-hover"
+						style="width: 70%; background-color: #fff">
+						<thead>
+							<tr>
+								<th>序号</th>
+								<th>订单号</th>
+								<th>类型</th>
+								<th>题目</th>
+								<th>创建时间</th>
+								<th>状态</th>
+							</tr>
+						</thead>
+						<tbody id="orderlist">
+						</tbody>
+					</table>
+					<ul class="pagination" style="">
+						<li><a href="javascript:subPage()">上一页</a></li>
+						<li><a id="b1" href="javascript:changePage(1)">1</a></li>
+						<li><a id="b2" href="javascript:changePage(2)">2</a></li>
+						<li><a id="b3" href="javascript:changePage(3)">3</a></li>
+						<li><a id="b4" href="javascript:changePage(4)">4</a></li>
+						<li><a id="b5" href="javascript:changePage(5)">5</a></li>
+						<li><a href="javascript:addPage()">下一页</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="header" style="background-color: #e84e49">
+		<a class="logoLink" href="./home.html"></a>
+		<ul>
+			<li class="headerLink"><a href="./contact.html">联系我们</a></li>
+			<li class="headerLink"><a href="./recruit.html">招贤纳士</a></li>
+			<li class="headerLink"><a href="./faq.html">FAQ</a></li>
+			<li class="headerLink"><a href="./new.html">最新资讯</a></li>
+			<li class="headerLink"><a href="./description.html">团队阵容</a></li>
+			<li class="headerLink"><a href="./home.html">首页</a></li>
+		</ul>
+		<p style="line-height: 70px">
+			<a id="loginlink" style="margin-left: 20px; color: #fff" href="#">登录</a>
+			<a id="registerlink" style="color: #fff" href="#">注册</a>
+		</p>
+	</div>
+	<div id="footer">
+		<div id="footerWrapper">
+			<img src="./image/QRcode.png">
+			<p>
+				官方微信号：ivypro <br> 扫一扫关注我们
+			</p>
+			<p>
+				客服QQ：2787107145<br> 客服微信号：IvyProservice
+			</p>
+			<p id="ICP">
+				Copyright (c) 2015 ivypro.net.All Rights Reserved.<br> <a
+					href="http://www.miitbeian.gov.cn/">冀ICP备14015427号-2</a>
+			</p>
+		</div>
+	</div>
+</body>
+</html>

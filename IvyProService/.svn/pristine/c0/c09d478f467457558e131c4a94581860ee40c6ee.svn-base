@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>IvyProService</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+  
+  <servlet>
+    <description>管理</description>
+    <display-name>ManageService</display-name>
+    <servlet-name>ManageService</servlet-name>
+    <servlet-class>
+           com.ivypro.Servlet.ManageServlet
+       </servlet-class>
+  </servlet>
+		
+   <servlet-mapping>
+    <servlet-name>ManageService</servlet-name>
+    <url-pattern>/manage</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <description>上传文件</description>
+    <display-name>Upfile</display-name>
+    <servlet-name>Upfile</servlet-name>
+    <servlet-class>
+           com.ivypro.Servlet.UpLoadFileServlet
+       </servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>Upfile</servlet-name>
+    <url-pattern>/upfile</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <description>下载文档</description>
+    <display-name>DownDocument</display-name>
+    <servlet-name>DownDocument</servlet-name>
+    <servlet-class>
+           com.ivypro.Servlet.DownLoadFileServlet
+       </servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>DownDocument</servlet-name>
+    <url-pattern>/downDocument</url-pattern>
+  </servlet-mapping>
+  
+  <listener>
+ 	<listener-class>
+      org.springframework.web.context.ContextLoaderListener
+ 	</listener-class>
+  </listener>
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/applicationContext.xml</param-value>
+  </context-param>
+  
+  <context-param> 
+  <param-name>log4jConfigLocation</param-name> 
+  <param-value>/WEB-INF/classes/log4j.properties</param-value> 
+   </context-param> 
+ <listener> 
+  <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class> 
+ </listener>
+</web-app>

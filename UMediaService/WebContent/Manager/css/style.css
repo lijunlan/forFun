@@ -1,0 +1,118 @@
+.nav-head {
+	width: 130px;
+	height: 69px;
+	background: #339933;
+	display: inline-block;
+	position: relative;
+	line-height: 69px;
+	text-align: center;
+	color: #ffffff;
+	font-size: 14px;
+	text-decoration: none;
+	float: left;
+	margin-top: 37px;
+	margin-right: 1px;
+	background: center;
+}
+
+.nav-head t {
+	width: 130px;
+	height: 0;
+	display: block;
+	overflow: hidden;
+	position: absolute;
+	border-left: 65px dotted #2eb398;
+	border-right: 65px dotted #2eb398;
+	border-bottom: 36px solid transparent;
+	left: 0px;
+	top: -36px;
+	background: top center;
+}
+
+.nav-head b {
+	width: 130px;
+	height: 0;
+	display: block;
+	overflow: hidden;
+	position: absolute;
+	border-left: 65px dotted #2eb398;
+	border-right: 65px dotted #2eb398;
+	border-top: 36px solid transparent;
+	bottom: -36px;
+	left: 0px;
+	background: bottom center;
+}
+
+.nav-head-small {
+	width: 74px;
+	height: 39px;
+	background: #339933;
+	display: inline-block;
+	position: relative;
+	line-height: 39px;
+	text-align: center;
+	color: #ffffff;
+	font-size: 14px;
+	text-decoration: none;
+	float: left;
+	margin-top: 21px;
+	margin-right: 1px;
+	background: center;
+}
+
+.nav-head-small t {
+	width: 74px;
+	height: 0;
+	display: block;
+	overflow: hidden;
+	position: absolute;
+	border-left: 37px dotted #fff;
+	border-right: 37px dotted #fff;
+	border-bottom: 21px solid transparent;
+	left: 0px;
+	top: -21px;
+	background: top center;
+}
+
+.nav-head-small b {
+	width: 74px;
+	height: 0;
+	display: block;
+	overflow: hidden;
+	position: absolute;
+	border-left: 37px dotted #fff;
+	border-right: 37px dotted #fff;
+	border-top: 21px solid transparent;
+	bottom: -21px;
+	left: 0px;
+	background: bottom center;
+}
+
+.showinfo-lable {
+	color: #6d7977;
+	margin-top: 6px;
+}
+
+.showinfo-info {
+	margin-left: 10px;
+	margin-top: 6px;
+}
+
+.showinfo-info-input {
+	margin-left: 10px;
+	margin-top: 6px;
+	border-top: 0px;
+	border-left: 0px;
+	border-right: 0px;
+}
+
+.showapps li {
+	background: url(../img/appbg.jpg);
+	margin-top: 10px;
+	width: 910px;
+	height: 200px;
+}
+
+.div-inline {
+	float: left;
+}

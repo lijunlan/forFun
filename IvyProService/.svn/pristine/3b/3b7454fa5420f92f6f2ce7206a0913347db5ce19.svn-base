@@ -1,0 +1,171 @@
+/* main page head */
+#header {
+	width: 100%;
+	height: 81px;
+	min-width: 1000px;
+	line-height: 81px;
+	background-color: rgba(233, 94, 89, 0.8);
+	overflow: hidden;
+	background-image: url(../image/headerLogo.png);
+	background-repeat: no-repeat;
+	background-position: 150px 0px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+.logoLink {
+	height: 80px;
+	width: 150px;
+	margin-left: 150px;
+	display: block;
+	float: left;
+}
+
+.headerLink {
+	font-size: 16px;
+	float: right;
+	margin-right: 20px;
+}
+
+.headerLink:hover {
+	
+}
+
+.headerLink>a {
+	color: white;
+}
+
+.headerLink>a:hover {
+	
+}
+
+#header>ul {
+	margin-right: 140px;
+}
+
+#header>ul li {
+	list-style-type: none;
+}
+
+.menuItem {
+	float: left;
+	width: 250px;
+	height: 80px;
+	line-height: 80px;
+	z-index: 10;
+	cursor: default;
+}
+/*dropMenu*/
+#dropMenuBg {
+	height: 80px;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.4);
+	position: absolute;
+	bottom: 0px;
+	z-index: 20;
+}
+
+#dropMenu {
+	width: 1000px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.MenuItem {
+	float: left;
+	width: 200px;
+	height: 80px;
+	line-height: 80px;
+	z-index: 10;
+	cursor: default;
+}
+
+.MenuItem>img {
+	margin-top: 15px;
+	float: left;
+	margin-left: 50px;
+}
+
+.MenuItem>a {
+	margin-left: 20px;
+	color: white;
+	font-size: 16px;
+	float: left;
+}/* 
+
+.dropDown {
+	position: absolute;
+	bottom: 80px;
+	margin-left: 84px;
+	width: 150px;
+	z-index: 9;
+	display: none;
+}
+
+.dropDownItem {
+	height: 45px;
+	width: 150px;
+	line-height: 45px;
+	text-align: center;
+	background-color: rgba(233, 94, 89, 0.8);
+	border-bottom: 1px solid #e84e49;
+}
+
+.dropDownItem:hover {
+	background-color: #e1504b;
+}
+
+.dropDownItem>a {
+	font-size: 16px;
+	color: white;
+} */
+/* show images*/
+.ownol {
+	margin-bottom: 70px;
+}
+
+.show-images {
+	
+}
+
+.show-images img {
+	width: 100%;
+}
+/* foot */
+#footer {
+	width: 100%;
+	height: 220px;
+	background-color: #252525;
+	position: relative;
+}
+
+#footerWrapper {
+	width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#footerWrapper>img {
+	width: 110px;
+	height: 110px;
+	margin-top: 45px;
+	float: left;
+}
+
+#footerWrapper>p {
+	color: white;
+	font-size: 15px;
+	float: left;
+	margin-top: 114px;
+	margin-left: 20px;
+}
+
+#footerWrapper>p:nth-of-type(2) {
+	margin-left: 50px !important;
+}
+
+#footerWrapper>p:last-child {
+	margin-left: 76px;
+	color: #898989 !important;
+}

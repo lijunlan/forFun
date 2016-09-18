@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+    <display-name>UMediaService</display-name>
+  <welcome-file-list>
+    <welcome-file>main.html</welcome-file>
+  </welcome-file-list>
+  
+   <servlet>
+    <description>管理</description>
+    <display-name>ManageService</display-name>
+    <servlet-name>ManageService</servlet-name>
+    <servlet-class>
+           com.sdll18.umedia.Servlet.ManageServlet
+       </servlet-class>
+  </servlet>
+		
+   <servlet-mapping>
+    <servlet-name>ManageService</servlet-name>
+    <url-pattern>/manage</url-pattern>
+  </servlet-mapping>
+		
+   <servlet-mapping>
+    <servlet-name>Login</servlet-name>
+    <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+    <description>登陆</description>
+    <display-name>Login</display-name>
+    <servlet-name>Login</servlet-name>
+    <servlet-class>
+           com.sdll18.umedia.Servlet.LoginServlet
+       </servlet-class>
+  </servlet>
+  
+  <servlet>
+       <description>上传文件服务端</description>
+       <display-name>UpImageService</display-name>
+       <servlet-name>UpImageService</servlet-name>
+       <servlet-class>
+           com.sdll18.umedia.Servlet.UpLoadImageServlet
+       </servlet-class>
+    </servlet>
+    <servlet-mapping>
+       <servlet-name>UpImageService</servlet-name>
+        <url-pattern>/upimage</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+       <description>下载图片服务端</description>
+       <display-name>DownImageService</display-name>
+       <servlet-name>DownImageService</servlet-name>
+       <servlet-class>
+           com.sdll18.umedia.Servlet.DownLoadImageServlet
+       </servlet-class>
+    </servlet>
+    <servlet-mapping>
+       <servlet-name>DownImageService</servlet-name>
+        <url-pattern>/downimage</url-pattern>
+    </servlet-mapping>
+    
+     <servlet>
+       <description>下载文件服务端</description>
+       <display-name>DownFileService</display-name>
+       <servlet-name>DownFileService</servlet-name>
+       <servlet-class>
+           com.sdll18.umedia.Servlet.DownLoadFileServlet
+       </servlet-class>
+    </servlet>
+    <servlet-mapping>
+       <servlet-name>DownFileService</servlet-name>
+        <url-pattern>/downfile</url-pattern>
+    </servlet-mapping>
+    
+  <listener>
+ 	<listener-class>
+      org.springframework.web.context.ContextLoaderListener
+ 	</listener-class>
+  </listener>
+</web-app>

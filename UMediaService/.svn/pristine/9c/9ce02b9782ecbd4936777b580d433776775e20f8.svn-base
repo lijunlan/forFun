@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+<meta charset="utf-8">
+<title>创建App</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="1.0">
+<meta name="author" content="sdll18">
+</head>
+<style type="text/css">
+body {
+	background-color: #323232;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+body,td,th {
+	color: #5E5E5E;
+	font-size: 12px;
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+</style>
+<title>create</title>
+<script type="text/javascript">
+	function back() {
+		delCookie("app_name");
+		delCookie("app_icon");
+		delCookie("app_description");
+		self.location = 'control_app.html';
+	}
+	function save() {
+		$.ajax({
+			cache : true,
+			type : "POST",
+			url : "/UMediaService/manage",
+			data : "{'style':'application','method':'create','user_id':'"
+					+ getCookie("user_id") + "','name':'"
+					+ getCookie("app_name") + "','description':'"
+					+ getCookie("app_description") + "','url':'"
+					+ getCookie("app_icon") + "','model':'1'}",
+			async : false,
+			error : function(request) {
+				//alert("Connection error");
+			},
+			success : function(data, textStatu) {
+				var json = eval("(" + data + ")");
+				if (getValueFromJson(json, "state") == "success") {
+					delCookie("app_name");
+					delCookie("app_icon");
+					delCookie("app_description");
+					//setCookie("app_url", getValueFromJson(json, "msg"));
+					self.location = 'create_wait.html';
+				} else {
+					alert(getValueFromJson(json, "msg"));
+				}
+			}
+		});
+	}
+	function MM_swapImgRestore() { //v3.0
+		var i, x, a = document.MM_sr;
+		for (i = 0; a && i < a.length && (x = a[i]) && x.oSrc; i++)
+			x.src = x.oSrc;
+	}
+	function MM_preloadImages() { //v3.0
+		var d = document;
+		if (d.images) {
+			if (!d.MM_p)
+				d.MM_p = new Array();
+			var i, j = d.MM_p.length, a = MM_preloadImages.arguments;
+			for (i = 0; i < a.length; i++)
+				if (a[i].indexOf("#") != 0) {
+					d.MM_p[j] = new Image;
+					d.MM_p[j++].src = a[i];
+				}
+		}
+	}
+
+	function MM_findObj(n, d) { //v4.01
+		var p, i, x;
+		if (!d)
+			d = document;
+		if ((p = n.indexOf("?")) > 0 && parent.frames.length) {
+			d = parent.frames[n.substring(p + 1)].document;
+			n = n.substring(0, p);
+		}
+		if (!(x = d[n]) && d.all)
+			x = d.all[n];
+		for (i = 0; !x && i < d.forms.length; i++)
+			x = d.forms[i][n];
+		for (i = 0; !x && d.layers && i < d.layers.length; i++)
+			x = MM_findObj(n, d.layers[i].document);
+		if (!x && d.getElementById)
+			x = d.getElementById(n);
+		return x;
+	}
+
+	function MM_swapImage() { //v3.0
+		var i, j = 0, x, a = MM_swapImage.arguments;
+		document.MM_sr = new Array;
+		for (i = 0; i < (a.length - 2); i += 3)
+			if ((x = MM_findObj(a[i])) != null) {
+				document.MM_sr[j++] = x;
+				if (!x.oSrc)
+					x.oSrc = x.src;
+				x.src = a[i + 2];
+			}
+	}
+</script>
+<body
+	onLoad="MM_preloadImages('img/3s.jpg','img/4s.jpg','img/save_sel.jpg','img/quit_sel.jpg','img/1s.jpg','img/2s.jpg')">
+	<table width="1102" border="0" align="center" cellpadding="1"
+		cellspacing="0">
+		<tbody>
+			<tr>
+				<th height="60" colspan="3" align="left" valign="bottom"
+					bgcolor="#161616" scope="col"><img src="img/logo.png"
+					width="54" height="46" alt=""><img src="img/u_media.png"
+					width="133" height="34" alt=""></th>
+			</tr>
+			<tr>
+				<td width="399" height="679" align="center" valign="middle"
+					background="img/create_background.jpg"><img
+					src="img/timeline.png" width="220" height="434" alt=""></td>
+				<td width="700" align="left" valign="top"
+					background="img/create_background.jpg"><table width="700"
+						border="0" cellspacing="0" cellpadding="0">
+						<tbody>
+							<tr>
+								<td width="701" height="145" valign="bottom"><table
+										width="500" border="0" cellspacing="0" cellpadding="0">
+										<tbody>
+											<tr>
+												<td><a href="create_first.html"
+													onMouseOut="MM_swapImgRestore()"
+													onMouseOver="MM_swapImage('Image8','','img/1s.jpg',1)"><img
+														src="img/1.jpg" alt="" width="123" height="48" id="Image8"></a></td>
+												<td><a href="create_second.html"
+													onMouseOut="MM_swapImgRestore()"
+													onMouseOver="MM_swapImage('Image5','','img/2s.jpg',1)"><img
+														src="img/2.jpg" alt="" width="123" height="48" id="Image5"></a></td>
+												<td><img src="img/3s.jpg" width="123" height="48"
+													alt=""></td>
+											</tr>
+										</tbody>
+									</table></td>
+							</tr>
+							<tr>
+								<td
+									style="color: #0D6251; font-size: 16px; font-family: Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;">&nbsp;</td>
+							</tr>
+							<tr>
+								<td height="28"
+									style="color: #0D6251; font-size: 16px; font-family: Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;">请选择您喜爱的界面样式</td>
+							</tr>
+							<tr>
+								<td height="363" valign="top"><table width="429"
+										height="356" border="0" cellpadding="0" cellspacing="0">
+										<tbody>
+											<tr>
+												<td width="219" height="23"><input type="radio"
+													name="radiobutton" id="checkbox">经典版</td>
+												<td width="210"><input type="radio" name="radiobutton"
+													id="checkbox2">蓝色简约</td>
+											</tr>
+											<tr>
+												<td width="219" height="95" align="center"><img
+													src="img/01.png" width="154" height="150" alt=""></td>
+												<td width="210" align="center"><img src="img/02.png"
+													width="152" height="150" alt=""></td>
+											</tr>
+											<tr>
+												<td height="23" align="left"><input type="radio"
+													name="radiobutton" id="checkbox3">靓丽活泼</td>
+												<td width="210" align="left"><input type="radio"
+													name="radiobutton" id="checkbox4">复古风</td>
+											</tr>
+											<tr>
+												<td height="151" align="center"><img src="img/03.png"
+													width="153" height="150" alt=""></td>
+												<td width="210" align="center"><img src="img/04.png"
+													width="154" height="150" alt=""></td>
+											</tr>
+										</tbody>
+									</table></td>
+							</tr>
+						</tbody>
+					</table>
+					<table width="530" height="52" border="0" cellpadding="0"
+						cellspacing="0">
+						<tbody>
+							<tr>
+								<td height="48" align="right" valign="bottom"><a href="#"
+									onMouseOut="MM_swapImgRestore()" onclick="save()"
+									onMouseOver="MM_swapImage('Image7','','img/save_sel.jpg',1)"><img
+										src="img/save.jpg" alt="" width="114" height="41" id="Image7">
+								</a><a onclick="back()" href="#" onMouseOut="MM_swapImgRestore()" 
+									onMouseOver="MM_swapImage('Image9','','img/quit_sel.jpg',1)"><img
+										src="img/quit.jpg" alt="" width="114" height="41" id="Image9"></a></td>
+							</tr>
+						</tbody>
+					</table></td>
+			</tr>
+			<tr>
+				<th height="39" colspan="4" align="center" bgcolor="#161616"
+					scope="row">&copy;<span
+					style="font-size: 12px; font-family: Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #5E5E5E;">
+						Copyright 2014 by Melon Studio</span></th>
+			</tr>
+		</tbody>
+	</table>

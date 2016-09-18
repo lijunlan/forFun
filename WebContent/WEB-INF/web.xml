@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>AppFactoryService</display-name>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+       <description>App上传服务端</description>
+       <display-name>UpLoadService</display-name>
+       <servlet-name>UpLoadService</servlet-name>
+       <servlet-class>
+           com.sdll18.appservice.Servlet.UpLoadServer
+       </servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+       <servlet-name>UpLoadService</servlet-name>
+        <url-pattern>/up</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+       <description>App下载服务端</description>
+       <display-name>DownLoadService</display-name>
+       <servlet-name>DownLoadService</servlet-name>
+       <servlet-class>
+           com.sdll18.appservice.Servlet.DownLoadServer
+       </servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+       <servlet-name>DownLoadService</servlet-name>
+        <url-pattern>/down</url-pattern>
+    </servlet-mapping>
+    
+     <servlet>
+       <description>App上传文件服务端</description>
+       <display-name>UpImageService</display-name>
+       <servlet-name>UpImageService</servlet-name>
+       <servlet-class>
+           com.sdll18.appservice.Servlet.UpLoadImageServer
+       </servlet-class>
+    </servlet>
+    <servlet-mapping>
+       <servlet-name>UpImageService</servlet-name>
+        <url-pattern>/upimage</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+       <description>App下载文件服务端</description>
+       <display-name>DownImageService</display-name>
+       <servlet-name>DownImageService</servlet-name>
+       <servlet-class>
+           com.sdll18.appservice.Servlet.DownLoadImageServer
+       </servlet-class>
+    </servlet>
+    <servlet-mapping>
+       <servlet-name>DownImageService</servlet-name>
+        <url-pattern>/downimage</url-pattern>
+    </servlet-mapping>
+    
+     <servlet>
+       <description>App移动端上传图片服务端</description>
+       <display-name>UpMobileImageService</display-name>
+       <servlet-name>UpMobileImageService</servlet-name>
+       <servlet-class>
+           com.sdll18.appservice.Servlet.UpLoadMobileImageServer
+       </servlet-class>
+    </servlet>
+    <servlet-mapping>
+       <servlet-name>UpMobileImageService</servlet-name>
+        <url-pattern>/mobileimage</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+       <description>获取html服务端</description>
+       <display-name>DownHtmlService</display-name>
+       <servlet-name>DownHtmlService</servlet-name>
+       <servlet-class>
+           com.sdll18.appservice.Servlet.DownLoadHtmlServer
+       </servlet-class>
+    </servlet>
+    <servlet-mapping>
+       <servlet-name>DownHtmlService</servlet-name>
+        <url-pattern>/passage</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+       <description>文件管理器</description>
+       <display-name>ManagerService</display-name>
+       <servlet-name>ManagerService</servlet-name>
+       <servlet-class>
+           com.sdll18.appservice.Servlet.DownOwnerImageServer
+       </servlet-class>
+    </servlet>
+    <servlet-mapping>
+       <servlet-name>ManagerService</servlet-name>
+        <url-pattern>/ownerImage</url-pattern>
+    </servlet-mapping>
+    
+<listener>
+ <listener-class>
+      org.springframework.web.context.ContextLoaderListener
+ </listener-class>
+</listener>
+    
+</web-app>

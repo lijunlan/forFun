@@ -1,0 +1,55 @@
+package com.sdll18.umedia.Deal.Service;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
+import com.sdll18.umedia.Data.ExUtil;
+import com.sdll18.umedia.Data.Json;
+import com.sdll18.umedia.Data.MsgUtil;
+import com.sdll18.umedia.Data.SuperMap;
+import com.sdll18.umedia.Persistant.Application;
+import com.sdll18.umedia.Persistant.User;
+import com.sdll18.umedia.Service.UserService;
+
+public class DownAppListService extends MsgService {
+
+	private UserService userService;
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+	@Override
+	protected boolean checkData() {
+		return getData().containsKey("user_id");
+	}
+
+	@Override
+	public void doit() {
+		int userid = Integer.parseInt(getData().get("user_id"));
+		User user = getUserService().query(userid, true);
+		if (user != null) {
+			Set<Application> applications = user.getApplications();
+			Iterator<Application> it = applications.iterator();
+			List<String> toSend = new ArrayList<String>();
+			while (it.hasNext()) {
+				Application a = it.next();
+				SuperMap temp = new SuperMap();
+				temp.put("url", a.getUrl());
+				temp.put("name", a.getName());
+				temp.put("id", a.getId());
+				temp.put("time", ExUtil.time2String(a.getCreateTime(), true));
+				toSend.add(temp.finishByJson());
+			}
+			setResMsg(Json.getJson(toSend));
+		} else {
+			setResMsg(MsgUtil.getErrorMsg("user is not existed"));
+		}
+	}
+}

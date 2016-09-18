@@ -1,0 +1,141 @@
+
+<html>
+<head>
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/works.css">
+
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="bootstrap/js/jquery.min.js"></script>
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="bootstrap/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+body {
+	background-image: url('img/homepage_background3.jpg');
+	background-attachment: fixed;
+}
+
+h1 {
+	text-align: center
+}
+</style>
+
+<script type="text/javascript">
+	function getQueryString(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null)
+			return unescape(r[2]);
+		return null;
+	}
+	function deletePhoto(id) {
+		$.ajax({
+			cache : true,
+			type : "POST",
+			url : "/SpringShootService/deletephoto",
+			data : "{'id':'" + id + "'}",
+			async : false,
+			error : function(request) {
+				alert("Connection error");
+			},
+			success : function(data, textStatu) {
+				location.replace(location.href);
+			}
+		});
+	}
+	$(document)
+			.ready(
+					function() {
+						var album = getQueryString("album");
+						$
+								.ajax({
+									cache : true,
+									type : "POST",
+									url : "/SpringShootService/getphoto",
+									data : "{'album':'" + album + "'}",
+									async : false,
+									error : function(request) {
+										alert("Connection error");
+									},
+									success : function(data, textStatu) {
+										var html = "";
+										var json = eval("(" + data + ")");
+										$
+												.each(
+														json,
+														function(index, value) {
+															html = html
+																	+ "<li class=\"span4\">"
+																	+ "<a href=\"#\" class=\"thumbnail\">"
+																	+ "<img alt=\"300*200\" style=\"width: 133px; height: 200px;\""
+					+ "	src=\""
+					+ value.url
+					+ "\">"
+																	+ "</a></br>"
+																	+ "<button class=\"btn btn-danger\" type=\"button\" onclick=\"deletePhoto("
+																	+ value.id
+																	+ ")\">删除</button>"
+																	+ "</li>";
+														});
+										$('#photos').html(html);
+									}
+								});
+					});
+</script>
+
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="span4">
+				<img alt="" src="img/title.png" />
+			</div>
+			<div class="span1"></div>
+			<div class="span7">
+				</br> </br> </br> </br> </br>
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="manage.html">&nbsp;&nbsp;儿童&nbsp;&nbsp;</a>
+					</li>
+					<li><a href="manage2.html">&nbsp;&nbsp;婚礼&nbsp;&nbsp;</a></li>
+					<li><a href="manage3.html">&nbsp;&nbsp;写真&nbsp;&nbsp;</a></li>
+					<li><a href="manage4.html">&nbsp;&nbsp;孕妇&nbsp;&nbsp;</a></li>
+					<li><a href="manage5.html">&nbsp;&nbsp;亲子&nbsp;&nbsp;</a></li>
+					<li><a href="manage6.html">&nbsp;&nbsp;旅拍&nbsp;&nbsp;</a></li>
+
+				</ul>
+			</div>
+		</div>
+
+		<ul class="breadcrumb">
+			<li><a href="manage.html">相册管理</a> <span class="divider">/</span></li>
+			<li>作品管理</li>
+		</ul>
+
+		<div class="row-fluid">
+			<div class="span12">
+				<button class="btn" type="button">作品上传</button>
+			</div>
+		</div>
+		</br>
+		<ul class="thumbnails" id="photos">
+			<li class="span4"><a href="#" class="thumbnail"> <img
+					alt="300*200" style="width: 133px; height: 200px;"
+					src="img/homepage_img6_shu.jpg">
+			</a> </br>
+				<button class="btn btn-danger" type="button">删除</button></li>
+
+		</ul>
+
+		</br>
+		<div class="copyright">
+			春天摄影工作室&nbsp;&nbsp;版权所有&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+				href="http://www.springphoto.cn/">www.springphoto.cn</a> All Right
+			Reserved 2014.
+		</div>
+
+	</div>
+</body>
+</html>

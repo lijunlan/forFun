@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"
+		scope="singleton">
+		<property name="configLocation" value="classpath:hibernate.cfg.xml">
+		</property>
+		<property name="annotatedClasses">
+			<list>
+				<value>com.sdll18.appservice.Persistant.User</value>
+				<value>com.sdll18.appservice.Persistant.Passage</value>
+				<value>com.sdll18.appservice.Persistant.Comment</value>
+				<value>com.sdll18.appservice.Persistant.Message</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- !!!!!Dao!!!!! -->
+	<bean id="messageDao" class="com.sdll18.appservice.Dao.Impl.MessageDaoImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="passageDao" class="com.sdll18.appservice.Dao.Impl.PassageDaoImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="commentDao" class="com.sdll18.appservice.Dao.Impl.CommentDaoImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="userDao" class="com.sdll18.appservice.Dao.Impl.UserDaoImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+
+	<!-- !!!!!Data Service!!!!! -->
+	<bean id="messageService" class="com.sdll18.appservice.Spring.Impl.MessageServiceImpl">
+		<property name="messageDao">
+			<ref local="messageDao" />
+		</property>
+	</bean>
+	<bean id="passageService" class="com.sdll18.appservice.Spring.Impl.PassageServiceImpl">
+		<property name="passageDao">
+			<ref local="passageDao" />
+		</property>
+	</bean>
+
+	<bean id="commentService" class="com.sdll18.appservice.Spring.Impl.CommentServiceImpl">
+		<property name="commentDao">
+			<ref local="commentDao" />
+		</property>
+	</bean>
+
+	<bean id="userService" class="com.sdll18.appservice.Spring.Impl.UserServiceImpl">
+		<property name="userDao">
+			<ref local="userDao" />
+		</property>
+	</bean>
+
+	<!-- !!!Msg Service!!! -->
+	<bean id="downCommentService" class="com.sdll18.appservice.Deal.Service.DownCommentService">
+		<property name="commentService">
+			<ref local="commentService" />
+		</property>
+	</bean>
+	<bean id="upCommentService" class="com.sdll18.appservice.Deal.Service.UpCommentService">
+		<property name="commentService">
+			<ref local="commentService" />
+		</property>
+		<property name="passageService">
+			<ref local="passageService" />
+		</property>
+		<property name="userService">
+			<ref local="userService" />
+		</property>
+	</bean>
+	<bean id="deleteCommentService" class="com.sdll18.appservice.Deal.Service.DeleteCommentService">
+		<property name="commentService">
+			<ref local="commentService" />
+		</property>
+	</bean>
+	<bean id="downMsgService" class="com.sdll18.appservice.Deal.Service.DownMsgService">
+		<property name="passageService">
+			<ref local="passageService" />
+		</property>
+	</bean>
+	<bean id="deleteMsgService" class="com.sdll18.appservice.Deal.Service.DeleteMsgService">
+		<property name="passageService">
+			<ref local="passageService" />
+		</property>
+	</bean>
+	<bean id="upTextMsgService" class="com.sdll18.appservice.Deal.Service.UpTextMsgService">
+		<property name="passageService">
+			<ref local="passageService" />
+		</property>
+	</bean>
+	<bean id="upRecommendMsgService"
+		class="com.sdll18.appservice.Deal.Service.UpRecommendMsgService">
+		<property name="passageService">
+			<ref local="passageService" />
+		</property>
+	</bean>
+	<bean id="upShareService" class="com.sdll18.appservice.Deal.Service.UpShareService">
+		<property name="passageService">
+			<ref local="passageService" />
+		</property>
+	</bean>
+	<bean id="upImageMsgService" class="com.sdll18.appservice.Deal.Service.UpImageMsgService">
+		<property name="passageService">
+			<ref local="passageService" />
+		</property>
+	</bean>
+	<bean id="loginService" class="com.sdll18.appservice.Deal.Service.LoginService">
+		<property name="userService">
+			<ref local="userService" />
+		</property>
+	</bean>
+	<bean id="logoutService" class="com.sdll18.appservice.Deal.Service.LogoutService">
+		<property name="userService">
+			<ref local="userService" />
+		</property>
+	</bean>
+	<bean id="changePasswordService"
+		class="com.sdll18.appservice.Deal.Service.ChangePasswordService">
+		<property name="userService">
+			<ref local="userService" />
+		</property>
+	</bean>
+	<bean id="changeUserInfoService"
+		class="com.sdll18.appservice.Deal.Service.ChangeUserInfoService">
+		<property name="userService">
+			<ref local="userService" />
+		</property>
+	</bean>
+	<bean id="downUserListService" class="com.sdll18.appservice.Deal.Service.DownUserListService">
+		<property name="userService">
+			<ref local="userService" />
+		</property>
+	</bean>
+	<bean id="downUserInfoService" class="com.sdll18.appservice.Deal.Service.DownUserInfoService">
+		<property name="userService">
+			<ref local="userService" />
+		</property>
+	</bean>
+	<bean id="registerService" class="com.sdll18.appservice.Deal.Service.RegisterService">
+		<property name="userService">
+			<ref local="userService" />
+		</property>
+	</bean>
+	<bean id="upPraiseService" class="com.sdll18.appservice.Deal.Service.UpPraiseService">
+		<property name="userService">
+			<ref local="userService" />
+		</property>
+		<property name="passageService">
+			<ref local="passageService" />
+		</property>
+		<property name="commentService">
+			<ref local="commentService" />
+		</property>
+	</bean>
+	<bean id="downPraiseService" class="com.sdll18.appservice.Deal.Service.DownPraiseService">
+		<property name="userService">
+			<ref local="userService" />
+		</property>
+		<property name="passageService">
+			<ref local="passageService" />
+		</property>
+		<property name="commentService">
+			<ref local="commentService" />
+		</property>
+	</bean>
+	<bean id="deletePraiseService" class="com.sdll18.appservice.Deal.Service.DeletePraiseService">
+		<property name="userService">
+			<ref local="userService" />
+		</property>
+		<property name="passageService">
+			<ref local="passageService" />
+		</property>
+		<property name="commentService">
+			<ref local="commentService" />
+		</property>
+	</bean>
+	<bean id="downMessageService" class="com.sdll18.appservice.Deal.Service.DownMessageService">
+		<property name="messageService">
+			<ref local="messageService" />
+		</property>
+		<property name="userService">
+			<ref local="userService" />
+		</property>
+	</bean>
+	<bean id="upMessageService" class="com.sdll18.appservice.Deal.Service.UpMessageService">
+		<property name="messageService">
+			<ref local="messageService" />
+		</property>
+		<property name="userService">
+			<ref local="userService" />
+		</property>
+	</bean>
+	<bean id="deleteMessageService" class="com.sdll18.appservice.Deal.Service.DeleteMessageService">
+		<property name="messageService">
+			<ref local="messageService" />
+		</property>
+	</bean>
+	<bean id="downRecentMessageListService"
+		class="com.sdll18.appservice.Deal.Service.DownRecentMessageListService">
+		<property name="messageService">
+			<ref local="messageService" />
+		</property>
+		<property name="userService">
+			<ref local="userService" />
+		</property>
+	</bean>
+	<bean id="deleteManyMessageService"
+		class="com.sdll18.appservice.Deal.Service.DeleteManyMessageService">
+		<property name="messageService">
+			<ref local="messageService" />
+		</property>
+	</bean>
+	<bean id="downRecommendMessageService"
+		class="com.sdll18.appservice.Deal.Service.DownRecommendMessageService">
+	</bean>
+	<bean id="upLoadActionService" class="com.sdll18.appservice.Deal.Service.UpLoadActionService">
+	</bean>
+	<bean id="downOwnInfoService" class="com.sdll18.appservice.Deal.Service.DownOwnInfoService">
+	</bean>
+	<bean id="downUserIpInfoService"
+		class="com.sdll18.appservice.Deal.Service.DownUserIpInfoService">
+		<property name="userService">
+			<ref local="userService" />
+		</property>
+	</bean>
+</beans>

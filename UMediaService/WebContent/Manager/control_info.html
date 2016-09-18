@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+<meta charset="utf-8">
+<title>UMedia</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="1.0">
+<meta name="author" content="sdll18">
+
+<!--link rel="stylesheet/less" href="less/bootstrap.less" type="text/css" /-->
+<!--link rel="stylesheet/less" href="less/responsive.less" type="text/css" /-->
+<!--script src="js/less-1.3.3.min.js"></script-->
+<!--append ‘#!watch’ to the browser URL, then refresh the page. -->
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+  <![endif]-->
+
+<!-- Fav and touch icons -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144"
+	href="img/144.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114"
+	href="img/114.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/72.png">
+<link rel="apple-touch-icon-precomposed" href="img/57.png">
+<link rel="shortcut icon" href="img/57.png">
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/cookie.js"></script>
+<script type="text/javascript" src="js/jsonutil.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		if (getCookie("user_id") == null) {
+			alert("请先登录！");
+			self.location = 'login.html';
+		}
+		getInfo();
+	});
+	function getInfo() {
+		$.ajax({
+			cache : true,
+			type : "POST",
+			url : "/UMediaService/manage",
+			data : "{'style':'user','method':'get_user_info','user_id':'"
+					+ getCookie("user_id") + "'}",
+			async : false,
+			error : function(request) {
+				//alert("Connection error");
+			},
+			success : function(data, textStatu) {
+				var json = eval("(" + data + ")");
+				$("#username").html(getValueFromJson(json, "username"));
+				$("#name2").html(getValueFromJson(json, "name"));
+				$("#name").html(getValueFromJson(json, "name"));
+				$("#address").html(getValueFromJson(json, "address"));
+				$("#sex").html(getValueFromJson(json, "sex"));
+				$("#realname").html(getValueFromJson(json, "realname"));
+				$("#birthday").html(getValueFromJson(json, "birthday"));
+				$("#bloodtype").html(getValueFromJson(json, "bloodType"));
+				$("#introduce").html(getValueFromJson(json, "introduce"));
+				$("#phone").html(getValueFromJson(json, "phone"));
+				$("#email").html(getValueFromJson(json, "email"));
+				$("#qq").html(getValueFromJson(json, "qq"));
+				$("#icon").attr("src", getValueFromJson(json, "url"));
+			}
+		});
+	}
+
+	function editBase() {
+		$("#edit_nickname").val($("#name").html());
+		$("#edit_address").val($("#address").html());
+		$("#edit_introduce").val($("#introduce").html());
+		$("#edit_blood").val($("#bloodtype").html());
+		$("#edit_birthday").val($("#birthday").html());
+		$("#edit_sex").val($("#sex").html());
+		$("#edit_realname").val($("#realname").html());
+	}
+	function editContact() {
+		$("#edit_qq").val($("#qq").html());
+		$("#edit_email").val($("#email").html());
+		$("#edit_phone").val($("#phone").html());
+	}
+	function updateBase() {
+		$.ajax({
+			cache : true,
+			type : "POST",
+			url : "/UMediaService/manage",
+			data : "{'style':'user','method':'change_info','user_id':'"
+					+ getCookie("user_id") + "','name':'"
+					+ $("#edit_nickname").val() + "','address':'"
+					+ $("#edit_address").val() + "','introduce':'"
+					+ $("#edit_introduce").val() + "','bloodtype':'"
+					+ $("#edit_blood").val() + "','birthday':'"
+					+ $("#edit_birthday").val() + "','realname':'"
+					+ $("#edit_realname").val() + "','sex':'"
+					+ $("#edit_sex").val() + "'}",
+			async : false,
+			error : function(request) {
+				alert("Connection error");
+			},
+			success : function(data, textStatu) {
+				var dataObj = eval("(" + data + ")");
+				alert(dataObj.state);
+				getInfo();
+				$("#close1").click();
+			}
+		});
+	}
+	function updateContact() {
+		$.ajax({
+			cache : true,
+			type : "POST",
+			url : "/UMediaService/manage",
+			data : "{'style':'user','method':'change_info','user_id':'"
+					+ getCookie("user_id") + "','qq':'" + $("#edit_qq").val()
+					+ "','email':'" + $("#edit_email").val() + "','phone':'"
+					+ $("#edit_phone").val() + "'}",
+			async : false,
+			error : function(request) {
+				alert("Connection error");
+			},
+			success : function(data, textStatu) {
+				var dataObj = eval("(" + data + ")");
+				alert(dataObj.state);
+				getInfo();
+				$("#close2").click();
+			}
+		});
+	}
+	function logout() {
+		delCookie("user_id");
+		self.location = 'login.html';
+	}
+</script>
+</head>
+<body style="background: #000">
+	<div class="container" align="center"
+		style="width: 100%; margin: 0px; padding: 0px;">
+		<table style="width: 1102px; height: 72px; margin: 0px; padding: 0px">
+			<tr height="72px"
+				style="background-color: #e6edec; padding: 0px; margin: 0px">
+				<td width="102px" style="padding: 0px; margin: 0px">
+					<p style="text-align: center; margin: 0px; padding: 0px">
+						<img
+							style="width: 102px; vertical-align: middle; margin: 0px; padding: 0px"
+							src="./img/house.jpg"></img>
+					</p>
+				</td>
+				<td width="780px" style="padding: 0px; margin: 0px">
+					<h3 style="color: #869b97; margin-left: 40px; margin-bottom: 22px">Mangement
+						Interface</h3>
+				</td>
+				<td width="220px" style="padding: 0px; margin: 0px">
+					<p class="text-center" style="color: #577670;">
+						<img id="icon" class="img-circle" src=""
+							style="margin-top: 8px; width: 50px; height: 50px"></img>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+							id="name2" onClick="logout()"></a>
+					</p>
+				</td>
+			</tr>
+		</table>
+		<table style="width: 1102px; height: 600px; margin: 0px; padding: 0px">
+			<tr height="680px" style="padding: 0px; margin: 0px">
+				<th width="102px" style="background: #323232;"><ul
+						style="list-style-type: none; height: 678px; margin: -1px; margin-top: -2px; border-width: 0px; padding: 0px">
+						<li><a href="#"> <img
+								style="width: 100%; vertical-align: middle; margin: 0px; padding: 0px"
+								src="./img/male_select.jpg"></img>
+						</a></li>
+						<li><a href="control_app.html"> <img
+								style="width: 100%; vertical-align: middle; margin: 0px; padding: 0px"
+								src="./img/shirt.jpg"></img>
+						</a></li>
+						<li><a href="#"> <img
+								style="width: 100%; vertical-align: middle; margin: 0px; padding: 0px"
+								src="./img/message.jpg"></img>
+						</a></li>
+						<li><a href="#"> <img
+								style="width: 100%; vertical-align: middle; margin: 0px; padding: 0px"
+								src="./img/geer.jpg"></img>
+						</a></li>
+						<li><a href="#"> <img
+								style="width: 100%; vertical-align: middle; margin: 0px; padding: 0px"
+								src="./img/numbers.jpg"></img>
+						</a></li>
+						<li><a href="#"> <img
+								style="width: 100%; vertical-align: middle; margin: 0px; padding: 0px"
+								src="./img/calender.jpg"></img>
+						</a></li>
+					</ul></th>
+				<th width="1000px" style="background: #fff">
+					<table style="width: 600px; height: 600px; margin-left: 60px;">
+						<tr style="height: 40px">
+							<th style="width: 100px; background: #2eb398;"><p
+									align="center" style="color: #fff; margin-top: 8px">基本信息</p></th>
+							<th style="width: 400px"><p align="center"
+									style="color: #c4cdcb; margin-top: 8px">------------------------------------------------------------------</p></th>
+							<th style="width: 100px;"><button type="button"
+									onclick="editBase()" class="btn btn-primary btn-lg"
+									data-toggle="modal" data-target="#myModal1"
+									style="background: #2eb398; color: #fff; margin-top: 2px">编辑</button></th>
+						</tr>
+						<tr style="height: 30px">
+							<td><p class="showinfo-lable" align="right">用户名</p></td>
+							<td><p class="showinfo-info" id="username"></p></td>
+							<td></td>
+						</tr>
+						<tr style="height: 30px">
+							<td><p class="showinfo-lable" align="right">昵称</p></td>
+							<td><p class="showinfo-info" id="name"></p></td>
+							<td></td>
+						</tr>
+						<tr style="height: 30px">
+							<td><p class="showinfo-lable" align="right">真实姓名</p></td>
+							<td><p class="showinfo-info" id="realname"></p></td>
+							<td></td>
+						</tr>
+						<tr style="height: 30px">
+							<td><p class="showinfo-lable" align="right">所在地</p></td>
+							<td><p class="showinfo-info" id="address"></p></td>
+							<td></td>
+						</tr>
+						<tr style="height: 30px">
+							<td><p class="showinfo-lable" align="right">性别</p></td>
+							<td><p class="showinfo-info" id="sex"></p></td>
+							<td></td>
+						</tr>
+						<tr style="height: 30px">
+							<td><p class="showinfo-lable" align="right">生日</p></td>
+							<td><p class="showinfo-info" id="birthday"></p></td>
+							<td></td>
+						</tr>
+						<tr style="height: 30px">
+							<td><p class="showinfo-lable" align="right">血型</p></td>
+							<td><p class="showinfo-info" id="bloodtype"></p></td>
+							<td></td>
+						</tr>
+						<tr style="height: 30px">
+							<td><p class="showinfo-lable" align="right">简介</p></td>
+							<td><p class="showinfo-info" id="introduce"></p></td>
+							<td></td>
+						</tr>
+						<tr></tr>
+						<tr style="height: 40px">
+							<th style="width: 100px; background: #2eb398;"><p
+									align="center" style="color: #fff; margin-top: 8px">联系信息</p></th>
+							<th style="width: 400px"><p align="center"
+									style="color: #c4cdcb; margin-top: 8px">------------------------------------------------------------------</p></th>
+							<th style="width: 100px;"><button type="button"
+									onclick="editContact()" class="btn btn-primary btn-lg"
+									data-toggle="modal" data-target="#myModal2"
+									style="background: #2eb398; color: #fff; margin-top: 2px">编辑</button></th>
+						</tr>
+						<tr style="height: 30px">
+							<td><p class="showinfo-lable" align="right">电话</p></td>
+							<td><p class="showinfo-info" id="phone"></p></td>
+							<td></td>
+						</tr>
+						<tr style="height: 30px">
+							<td><p class="showinfo-lable" align="right">E-mail</p></td>
+							<td><p class="showinfo-info" id="email"></p></td>
+							<td></td>
+						</tr>
+						<tr style="height: 30px">
+							<td><p class="showinfo-lable" align="right">QQ</p></td>
+							<td><p class="showinfo-info" id="qq"></p></td>
+							<td></td>
+						</tr>
+						<tr style="height: 40px">
+							<th style="width: 100px;"></th>
+							<th style="width: 400px"><p align="center"
+									style="color: #c4cdcb; margin-top: 8px">------------------------------------------------------------------</p></th>
+							<th style="width: 100px;"></th>
+						</tr>
+						<tr></tr>
+					</table>
+				</th>
+			</tr>
+		</table>
+		<table style="width: 1102px; height: 28px; margin: 0px; padding: 0px">
+			<tr height="28px" style="background: #222222">
+				<th width="1102px"><h6 style="color: #454545" align="center">©
+						Copyright 2014 by Melon Studio</h6></th>
+			</tr>
+		</table>
+	</div>
+	<div id="myModal1" tabindex="-1" class="modal fade" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">×</button>
+					<h3 id="myModalLabel">更改基本信息</h3>
+				</div>
+				<div class="modal-body">
+					<div class="container" align="left"
+						style="width: 80%; height: 20px; margin-top: 5px">
+						<div align="right" style="width: 20%; float: left;">
+							<h4>昵称</h4>
+						</div>
+						<div align="center" style="width: 60%; float: right;">
+							<input id="edit_nickname" class="form-control" type="text"
+								style="height: 30px"></input>
+						</div>
+					</div>
+					<div class="container" align="left"
+						style="width: 80%; height: 20px; margin-top: 20px">
+						<div align="right" style="width: 20%; float: left;">
+							<h4>姓名</h4>
+						</div>
+						<div align="center" style="width: 60%; float: right;">
+							<input id="edit_realname" class="form-control" type="text"
+								style="height: 30px"></input>
+						</div>
+					</div>
+					<div class="container" align="left"
+						style="width: 80%; height: 20px; margin-top: 20px">
+						<div align="right" style="width: 20%; float: left;">
+							<h4>所在地</h4>
+						</div>
+						<div align="center" style="width: 60%; float: right;">
+							<input id="edit_address" class="form-control" type="text"
+								style="height: 30px"></input>
+						</div>
+					</div>
+					<div class="container" align="left"
+						style="width: 80%; height: 20px; margin-top: 20px">
+						<div align="right" style="width: 20%; float: left;">
+							<h4>性别</h4>
+						</div>
+						<div align="center" style="width: 60%; float: right;">
+							<input id="edit_sex" class="form-control" type="text"
+								style="height: 30px"></input>
+						</div>
+					</div>
+					<div class="container" align="left"
+						style="width: 80%; height: 20px; margin-top: 20px">
+						<div align="right" style="width: 20%; float: left;">
+							<h4>生日</h4>
+						</div>
+						<div align="center" style="width: 60%; float: right;">
+							<input id="edit_birthday" class="form-control" type="text"
+								style="height: 30px"></input>
+						</div>
+					</div>
+					<div class="container" align="left"
+						style="width: 80%; height: 20px; margin-top: 20px">
+						<div align="right" style="width: 20%; float: left;">
+							<h4>血型</h4>
+						</div>
+						<div align="center" style="width: 60%; float: right;">
+							<input id="edit_blood" class="form-control" type="text"
+								style="height: 30px"></input>
+						</div>
+					</div>
+					<div class="container" align="left"
+						style="width: 80%; height: 20px; margin-top: 20px">
+						<div align="right" style="width: 20%; float: left;">
+							<h4>简介</h4>
+						</div>
+						<div align="center" style="width: 60%; float: right;">
+							<input id="edit_introduce" class="form-control" type="text"
+								style="height: 30px"></input>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button id="close1" class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+					<button class="btn btn-primary" style="background: #2eb398;"
+						onclick="updateBase()">保存</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="myModal2" tabindex="-1" class="modal fade" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">×</button>
+					<h3 id="myModalLabel">更改联系信息</h3>
+				</div>
+				<div class="modal-body">
+					<div class="container" align="left"
+						style="width: 80%; height: 20px; margin-top: 5px">
+						<div align="right" style="width: 20%; float: left;">
+							<h4>电话</h4>
+						</div>
+						<div align="center" style="width: 60%; float: right;">
+							<input id="edit_phone" class="form-control" type="text"
+								style="height: 30px"></input>
+						</div>
+					</div>
+					<div class="container" align="left"
+						style="width: 80%; height: 20px; margin-top: 20px">
+						<div align="right" style="width: 20%; float: left;">
+							<h4>E-mail</h4>
+						</div>
+						<div align="center" style="width: 60%; float: right;">
+							<input id="edit_email" class="form-control" type="text"
+								style="height: 30px"></input>
+						</div>
+					</div>
+					<div class="container" align="left"
+						style="width: 80%; height: 20px; margin-top: 20px">
+						<div align="right" style="width: 20%; float: left;">
+							<h4>QQ</h4>
+						</div>
+						<div align="center" style="width: 60%; float: right;">
+							<input id="edit_qq" class="form-control" type="text"
+								style="height: 30px"></input>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button id="close2" class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+					<button class="btn btn-primary" style="background: #2eb398;"
+						onclick="updateContact()">保存</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+<meta charset="utf-8">
+<title>AppManager</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="1.0">
+<meta name="author" content="sdll18">
+
+<!--link rel="stylesheet/less" href="less/bootstrap.less" type="text/css" /-->
+<!--link rel="stylesheet/less" href="less/responsive.less" type="text/css" /-->
+<!--script src="js/less-1.3.3.min.js"></script-->
+<!--append ‘#!watch’ to the browser URL, then refresh the page. -->
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+  <![endif]-->
+
+<!-- Fav and touch icons -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144"
+	href="img/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114"
+	href="img/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72"
+	href="img/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed"
+	href="img/apple-touch-icon-57-precomposed.png">
+<link rel="shortcut icon" href="img/favicon.png">
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+</script>
+</head>
+<body style="background: #000" onLoad="MM_preloadImages('../../zhandianzzzz/img/male_select.jpg','img/modify_sel.jpg','img/delete_sel.jpg','img/shirt_select.jpg','img/geer_sel.jpg','img/number_sel.jpg','img/calender_sel.jpg')">
+	<div class="container" align="center"
+		style="width: 100%; margin: 0px; padding: 0px;">
+		<table style="width: 1102px; height: 72px; margin: 0px; padding: 0px">
+			<tr height="72px"
+				style="background-color: #e6edec; padding: 0px; margin: 0px">
+				<td width="102px" style="padding: 0px; margin: 0px">
+					<p style="text-align: center; margin: 0px; padding: 0px">
+						<img
+							style="width: 102px; vertical-align: middle; margin: 0px; padding: 0px"
+							src="./img/house.jpg"></img>
+					</p>
+				</td>
+				<td width="780px" style="padding: 0px; margin: 0px">
+					<h3 style="color: #869b97; margin-left: 40px; margin-bottom: 22px">Mangement
+						Interface</h3>
+				</td>
+				<td width="220px" style="padding: 0px; margin: 0px">
+					<p class="text-center" style="color: #577670;">
+						<img class="img-circle" src="http://lorempixel.com/50/50/"
+							style="margin-top: 8px"></img>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Smith
+						Anderson
+					</p>
+				</td>
+			</tr>
+		</table>
+		<table style="width: 1102px; height: 600px; margin: 0px; padding: 0px">
+			<tr height="680px" style="padding: 0px; margin: 0px">
+				<th width="102px" style="background: #323232;"><ul
+						style="list-style-type: none; height: 678px; margin: -1px; margin-top: -2px; border-width: 0px; padding: 0px">
+						<li><a href="#"></img></a><a href="control_info.html" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image1','','img/male_select.jpg',1)"><img src="img/male.jpg" alt="" width="102" height="72" id="Image1"></a><a href="#"><br>
+						</a><a href="control_app.html" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image2','','img/shirt_select.jpg',1)"><img src="img/shirt.jpg" alt="" width="102" height="72" id="Image2"></a><img src="img/comment_sel.jpg" width="102" height="72" alt=""/></li>
+						<li><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image4','','img/geer_sel.jpg',1)"><img src="img/geer.jpg" alt="" width="102" height="72" id="Image4"></a><a href="#"></img>
+						</a></li>
+						<li><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image5','','img/number_sel.jpg',1)"><img src="img/numbers.jpg" alt="" width="102" height="72" id="Image5"></a><a href="#"></img>
+						</a></li>
+						<li><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image6','','img/calender_sel.jpg',1)"><img src="img/calender.jpg" alt="" width="102" height="72" id="Image6"></a><a href="#"></img>
+						</a></li>
+					</ul></th>
+				<th width="1000px" style="background: #fff">
+					<div style="width: 998px; height: 668px; overflow: auto;">
+						<ul class="showapps"
+							style="width: 982px; padding-top: 10px; height: 668px; list-style-type: none;">
+							<li>
+								<div class="div-inline"
+									style="margin-left: 40px; margin-top: 40px; width: 150px; height: 140px;">
+									<img class="img-rounded" src="http://lorempixel.com/110/110/" />
+								</div>
+							  <div class="div-inline" style="width: 400px; height: 200px">
+									<div style="margin-left: 30px; margin-top: 70px">
+										<h4 style="margin-left: 30px; color: #869b97;">The Dump
+											Pregnacy</h4>
+										<h4 style="margin-left: 30px; color: #869b97;">2014.7.12</h4>
+									</div>
+							  </div>
+								<div class="div-inline" style="width: 300px; height: 200px;">
+                                <br>
+                                <br>
+<table width="400" border="0" cellspacing="5" cellpadding="0">
+  <tbody>
+    <tr>
+      <th scope="col"><a href="upPassage.html" target="new" style="text-align: center" onMouseOver="MM_swapImage('Image7','','img/info_pub_sel.jpg',1)" onMouseOut="MM_swapImgRestore()"><img src="img/info_pub.jpg" alt="" width="98" height="39" id="Image7"></a></th>
+    </tr>
+    <tr>
+      <th scope="row"><a href="families.html" target="new" style="text-align: center" onMouseOver="MM_swapImage('Image8','','img/check_fam_sel.jpg',1)" onMouseOut="MM_swapImgRestore()"><img src="img/check_fam.jpg" alt="" width="98" height="39" id="Image8"></a></th>
+    </tr>
+    <tr>
+      <th scope="col"><a href="#" style="text-align: center" onMouseOver="MM_swapImage('Image9','','img/check_comment_sel.jpg',1)" onMouseOut="MM_swapImgRestore()"><img src="img/check_comment.jpg" alt="" width="98" height="39" id="Image9"></a></th>
+    </tr>
+  </tbody>
+</table>
+                            </li>
+							<li><div class="div-inline"
+									style="margin-left: 40px; margin-top: 40px; width: 150px; height: 140px;">
+									<img class="img-rounded" src="http://lorempixel.com/110/110/" />
+								</div>
+								<div class="div-inline" style="width: 400px; height: 200px">
+									<div style="margin-left: 30px; margin-top: 70px">
+										<h4 style="margin-left: 30px; color: #869b97;">The Dump
+											Pregnacy</h4>
+										<h4 style="margin-left: 30px; color: #869b97;">2014.7.12</h4>
+									</div>
+								</div>
+								<div class="div-inline" style="width: 300px; height: 200px;">
+                                <br>
+                                <br>
+<table width="400" border="0" cellspacing="5" cellpadding="0">
+  <tbody>
+    <tr>
+      <th scope="col"><a href="upPassage.html" target="new" style="text-align: center" onMouseOver="MM_swapImage('Image10','','img/info_pub_sel.jpg',1)" onMouseOut="MM_swapImgRestore()"><img src="img/info_pub.jpg" alt="" width="98" height="39" id="Image10"></a></th>
+    </tr>
+    <tr>
+      <th scope="row"><a href="families.html" target="new" style="text-align: center" onMouseOver="MM_swapImage('Image11','','img/check_fam_sel.jpg',1)" onMouseOut="MM_swapImgRestore()"><img src="img/check_fam.jpg" alt="" width="98" height="39" id="Image11"></a></th>
+    </tr>
+    <tr>
+      <th scope="col"><a href="#" style="text-align: center" onMouseOver="MM_swapImage('Image12','','img/check_comment_sel.jpg',1)" onMouseOut="MM_swapImgRestore()"><img src="img/check_comment.jpg" alt="" width="98" height="39" id="Image12"></a></th>
+    </tr>
+  </tbody>
+</table>
+                                </li>
+							<li><div class="div-inline"
+									style="margin-left: 40px; margin-top: 40px; width: 150px; height: 140px;">
+									<img class="img-rounded" src="http://lorempixel.com/110/110/" />
+								</div>
+								<div class="div-inline" style="width: 400px; height: 200px">
+									<div style="margin-left: 30px; margin-top: 70px">
+										<h4 style="margin-left: 30px; color: #869b97;">The Dump
+											Pregnacy</h4>
+										<h4 style="margin-left: 30px; color: #869b97;">2014.7.12</h4>
+									</div>
+								</div>
+								<div class="div-inline" style="width: 300px; height: 200px;">
+                                <br>
+                                <br>
+<table width="400" border="0" cellspacing="5" cellpadding="0">
+  <tbody>
+    <tr>
+      <th scope="col"><a href="upPassage.html" target="new" style="text-align: center" onMouseOver="MM_swapImage('Image13','','img/info_pub_sel.jpg',1)" onMouseOut="MM_swapImgRestore()"><img src="img/info_pub.jpg" alt="" width="98" height="39" id="Image13"></a></th>
+    </tr>
+    <tr>
+      <th scope="row"><a href="families.html" target="new" style="text-align: center" onMouseOver="MM_swapImage('Image14','','img/check_fam_sel.jpg',1)" onMouseOut="MM_swapImgRestore()"><img src="img/check_fam.jpg" alt="" width="98" height="39" id="Image14"></a></th>
+    </tr>
+    <tr>
+      <th scope="col"><a href="#" style="text-align: center" onMouseOver="MM_swapImage('Image15','','img/check_comment_sel.jpg',1)" onMouseOut="MM_swapImgRestore()"><img src="img/check_comment.jpg" alt="" width="98" height="39" id="Image15"></a></th>
+    </tr>
+  </tbody>
+</table>
+                                </li>
+							<li><div class="div-inline"
+									style="margin-left: 40px; margin-top: 40px; width: 150px; height: 140px;">
+									<img class="img-rounded" src="http://lorempixel.com/110/110/" />
+								</div>
+								<div class="div-inline" style="width: 400px; height: 200px">
+									<div style="margin-left: 30px; margin-top: 70px">
+										<h4 style="margin-left: 30px; color: #869b97;">The Dump
+											Pregnacy</h4>
+										<h4 style="margin-left: 30px; color: #869b97;">2014.7.12</h4>
+									</div>
+								</div>
+								<div class="div-inline" style="width: 300px; height: 200px;">
+                                <br>
+                                <br>
+                              <table width="400" border="0" cellspacing="5" cellpadding="0">
+  <tbody>
+    <tr>
+      <th scope="col"><a href="upPassage.html" target="new" style="text-align: center" onMouseOver="MM_swapImage('Image16','','img/info_pub_sel.jpg',1)" onMouseOut="MM_swapImgRestore()"><img src="img/info_pub.jpg" alt="" width="98" height="39" id="Image16"></a></th>
+    </tr>
+    <tr>
+      <th scope="row"><a href="families.html" target="new" style="text-align: center" onMouseOver="MM_swapImage('Image17','','img/check_fam_sel.jpg',1)" onMouseOut="MM_swapImgRestore()"><img src="img/check_fam.jpg" alt="" width="98" height="39" id="Image17"></a></th>
+    </tr>
+    <tr>
+      <th scope="col"><a href="#" style="text-align: center" onMouseOver="MM_swapImage('Image18','','img/check_comment_sel.jpg',1)" onMouseOut="MM_swapImgRestore()"><img src="img/check_comment.jpg" alt="" width="98" height="39" id="Image18"></a></th>
+    </tr>
+  </tbody>
+</table>
+</li>
+							<li><div class="div-inline"
+									style="margin-left: 40px; margin-top: 40px; width: 150px; height: 140px;">
+									<img class="img-rounded" src="http://lorempixel.com/110/110/" />
+								</div>
+								<div class="div-inline" style="width: 400px; height: 200px">
+									<div style="margin-left: 30px; margin-top: 70px">
+										<h4 style="margin-left: 30px; color: #869b97;">The Dump
+											Pregnacy</h4>
+										<h4 style="margin-left: 30px; color: #869b97;">2014.7.12</h4>
+									</div>
+								</div>
+								<div class="div-inline" style="width: 300px; height: 200px;">
+                                <br>
+                                <br>
+                               <table width="400" border="0" cellspacing="5" cellpadding="0">
+  <tbody>
+    <tr>
+      <th scope="col"><a href="upPassage.html" target="new" style="text-align: center" onMouseOver="MM_swapImage('Image19','','img/info_pub_sel.jpg',1)" onMouseOut="MM_swapImgRestore()"><img src="img/info_pub.jpg" alt="" width="98" height="39" id="Image19"></a></th>
+    </tr>
+    <tr>
+      <th scope="row"><a href="families.html" target="new" style="text-align: center" onMouseOver="MM_swapImage('Image20','','img/check_fam_sel.jpg',1)" onMouseOut="MM_swapImgRestore()"><img src="img/check_fam.jpg" alt="" width="98" height="39" id="Image20"></a></th>
+    </tr>
+    <tr>
+      <th scope="col"><a href="#" style="text-align: center" onMouseOver="MM_swapImage('Image21','','img/check_comment_sel.jpg',1)" onMouseOut="MM_swapImgRestore()"><img src="img/check_comment.jpg" alt="" width="98" height="39" id="Image21"></a></th>
+    </tr>
+  </tbody>
+</table>
+</li>
+						</ul>
+					</div>
+				</th>
+			</tr>
+		</table>
+		<table style="width: 1102px; height: 28px; margin: 0px; padding: 0px">
+			<tr height="28px" style="background: #222222">
+				<th width="1102px"><h6 style="color: #454545" align="center">©
+						Copyright 2014 by Melon Studio</h6></th>
+			</tr>
+		</table>
+</div>
+</body>
+</html>

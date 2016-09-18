@@ -1,0 +1,9 @@
+package com.sdll18.umedia.Servlet;
+
+import javax.servlet.http.HttpServlet;
+
+@SuppressWarnings("serial")
+public class ManageServlet extends HttpServlet{
+
+
+}

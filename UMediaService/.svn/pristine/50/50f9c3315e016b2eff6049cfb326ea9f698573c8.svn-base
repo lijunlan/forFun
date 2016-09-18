@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+<meta charset="utf-8">
+<title>创建App</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="1.0">
+<meta name="author" content="sdll18">
+</head>
+<style type="text/css">
+body {
+	background-color: #323232;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+body,td,th {
+	color: #5E5E5E;
+	font-size: 12px;
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+</style>
+<title>Create App</title>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/plupload/js/plupload.full.js"></script>
+<script type="text/javascript" src="js/cookie.js"></script>
+<script type="text/javascript"
+	src="js/plupload/js/jquery.plupload.queue/jquery.plupload.queue.js"></script>
+<script type="text/javascript" src="js/plupload/js/i18n/cn.js"></script>
+<style type="text/css">
+@import
+	url(js/plupload/js/jquery.plupload.queue/css/plupload.bootstrap.css);
+</style>
+<script type="text/javascript">
+	var j16 = jQuery.noConflict();
+	// Convert divs to queue widgets when the DOM is ready
+	j16(document)
+	.ready(function () {
+		if (getCookie("user_id") == null) {
+			alert("请先登录！");
+			self.location = 'login.html';
+		}
+	});
+	j16(function() {
+		j16("#uploader").pluploadQueue({
+			// General settings
+			runtimes : 'html5,flash,silverlight,html4',
+			url : '/UMediaService/upimage',
+			max_file_size : '2mb',
+			unique_names : true,
+			multiple_queues : false,
+			//一次只能选择一个图片
+			multi_selection : false,
+			dragdrop : true,
+			chunk_size : '2mb',
+			// Specify what files to browse for
+			filters : [ {
+				title : "图片",
+				extensions : "jpg,bmp,png,gif"
+			} ],
+			// Flash settings
+			flash_swf_url : 'js/plupload/js/plupload.flash.swf',
+			// Silverlight settings
+			silverlight_xap_url : 'js/plupload/js/plupload.silverlight.xap'
+		});
+
+		var upl = j16("#uploader").pluploadQueue();
+		upl.bind('FileUploaded', function(up, file, res) {
+			try {
+				var json = jQuery.parseJSON(res['response']);
+				j16('#imageUrl').val(json['url']);
+			} catch (e) {
+				alert(e);
+			}
+			//alert(file.name + " uploaded!");
+			//a
+		});
+
+		j16("#uploader").pluploadQueue();
+		upl.bind('FilesAdded', function(up, files) {
+			if (up.files.length > 1) {
+				alert("您只能上传一张图片！");
+				up.removeFile(files[0]);
+			}
+		});
+
+		j16('#form')
+				.submit(
+						function(e) {
+							var uploader = $('#uploader').pluploadQueue();
+							alert(uploader.files.length);
+							if (uploader.files.length > 0
+									&& uploader.files.length < 2) {
+								// When all files are uploaded submit form
+								uploader
+										.bind(
+												'StateChanged',
+												function() {
+													if (uploader.files.length === (uploader.total.uploaded + uploader.total.failed)) {
+														j16('form')[1].submit();
+													}
+												});
+								uploader.start();
+							} else if (uploader.files.length > 0) {
+								alert("only one file is allowed!");
+							} else {
+								alert('you should choose one file!');
+							}
+							return false;
+						});
+	});
+	</script>
+
+<script type="text/javascript">
+function MM_swapImgRestore() { //v3.0 var i, x, a = document.MM_sr; for
+(i = 0; a && i < a.length && (x = a[i]) && x.oSrc; i++) x.src = x.oSrc;
+} function MM_preloadImages() { //v3.0 var d = document; if (d.images) {
+if (!d.MM_p) d.MM_p = new Array(); var i, j = d.MM_p.length, a =
+MM_preloadImages.arguments; for (i = 0; i < a.length; i++) if
+(a[i].indexOf("#") != 0) { d.MM_p[j] = new Image; d.MM_p[j++].src =
+a[i]; } } } function MM_findObj(n, d) { //v4.01 var p, i, x; if (!d) d =
+document; if ((p = n.indexOf("?")) > 0 && parent.frames.length) { d =
+parent.frames[n.substring(p + 1)].document; n = n.substring(0, p); } if
+(!(x = d[n]) && d.all) x = d.all[n]; for (i = 0; !x && i <
+d.forms.length; i++) x = d.forms[i][n]; for (i = 0; !x && d.layers && i
+< d.layers.length; i++) x = MM_findObj(n, d.layers[i].document); if (!x
+&& d.getElementById) x = d.getElementById(n); return x; } function
+MM_swapImage() { //v3.0 var i, j = 0, x, a = MM_swapImage.arguments;
+document.MM_sr = new Array; for (i = 0; i < (a.length - 2); i += 3) if
+((x = MM_findObj(a[i])) != null) { document.MM_sr[j++] = x; if (!x.oSrc)
+x.oSrc = x.src; x.src = a[i + 2]; } }
+</script>
+
+<script type="text/javascript">
+function next(){
+	if (getCookie("app_name")==null||getCookie("app_icon")==null||getCookie("app_description") == null) {
+		alert("请将信息填写完整！");
+		return;
+	}
+	self.location = 'create_second.html';
+}
+function back() {
+	delCookie("app_name");
+	delCookie("app_icon");
+	delCookie("app_description");
+	self.location = 'control_app.html';
+}
+function save() {
+	var str ="请指定App的";
+	if(j16('#name').val()==""){
+		str = str + "名称";
+	}
+	if(j16('#imageUrl').val()==""){
+		str = str + " 图标";
+	}
+	if(j16('#description').val()==""){
+		str = str + " 描述";
+	}
+	if(str!="请指定App的"){
+		alert(str);
+		return;
+	}
+	var name = j16('#name').val();
+	var icon = j16('#imageUrl').val();
+	var description = j16('#description').val();
+	try{
+	setCookie("app_name",name);
+	setCookie("app_icon",icon);
+	setCookie("app_description",description);}catch (e) {
+		alert(e);
+	}
+}
+</script>
+<body
+	onLoad="MM_preloadImages('img/2s.jpg','img/3s.jpg','img/4s.jpg','img/save_sel.jpg','img/quit_sel.jpg')">
+	<table width="1102" border="0" align="center" cellpadding="1"
+		cellspacing="0">
+		<tbody>
+			<tr>
+				<th height="60" colspan="3" align="left" valign="bottom"
+					bgcolor="#161616" scope="col"><img src="img/logo.png"
+					width="54" height="46" alt="" /><img src="img/u_media.png"
+					width="133" height="34" alt="" /></th>
+			</tr>
+			<tr>
+				<td width="399" height="679" align="center" valign="middle"
+					background="img/create_background.jpg"><img
+					src="img/timeline.png" width="220" height="434" alt="" /></td>
+				<td width="701" align="left" valign="top"
+					background="img/create_background.jpg"><table width="700"
+						border="0" cellspacing="0" cellpadding="0">
+						<tbody>
+							<tr>
+								<td width="701" height="145" valign="bottom">
+									<table width="500" border="0" cellspacing="0" cellpadding="0">
+										<tbody>
+											<tr>
+												<td><img src="img/1s.jpg" width="123" height="48"
+													alt="" /></td>
+												<td><a onclick="next()"
+													onMouseOut="MM_swapImgRestore()"
+													onMouseOver="MM_swapImage('Image4','','img/2s.jpg',1)"><img
+														src="img/2.jpg" alt="" width="123" height="48" id="Image4">
+												</a></td>
+												<td><a href="#" onMouseOut="MM_swapImgRestore()"
+													onMouseOver="MM_swapImage('Image5','','img/3s.jpg',1)"><img
+														src="img/3.jpg" alt="" width="123" height="48" id="Image5">
+												</a></td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td
+									style="color: #0D6251; font-size: 16px; font-family: Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;">&nbsp;</td>
+							</tr>
+							<tr>
+								<td
+									style="color: #0D6251; font-size: 16px; font-family: Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;">APP名称</td>
+							</tr>
+							<tr>
+								<td height="37"><input id="name" type="text"> <span
+									style="color: #FF0004"> *</span></td>
+							</tr>
+							<tr>
+								<td style="font-size: 16px; color: #0D6251;">APP图标<input
+									id="imageUrl" class="form-control" type="text"
+									style="width: 450px" placeholder="Choose a picture…" readonly><a
+									id="modal-531306" href="#modal-container-531306"
+									class="btn pull-right"
+									style="margin-right: 600px; margin-top: 8px; width: 100px; border-radius: 0px; background: #2eb398; color: #ffffff"
+									role="button" class="btn btn-primary" data-toggle="modal">Select</a></td>
+
+							</tr>
+							<tr>
+								<td height="28" style="color: #0D6251; font-size: 16px;">APP描述</td>
+							</tr>
+							<tr>
+								<td><textarea name="textarea" id="description" cols="45"
+										rows="7" style="resize: none;"></textarea></td>
+							</tr>
+						</tbody>
+					</table>
+					<table width="530" height="107" border="0" cellpadding="0"
+						cellspacing="0">
+						<tbody>
+							<tr>
+								<td height="107" align="right" valign="bottom"><a
+									onclick="save()" onMouseOut="MM_swapImgRestore()"
+									onMouseOver="MM_swapImage('Image7','','img/save_sel.jpg',1)"><img
+										src="img/save.jpg" alt="" width="114" height="41" id="Image7">
+								</a><a onclick="back()" onMouseOut="MM_swapImgRestore()"
+									onMouseOver="MM_swapImage('Image8','','img/quit_sel.jpg',1)"><img
+										src="img/quit.jpg" alt="" width="114" height="41" id="Image8"></a></td>
+							</tr>
+						</tbody>
+					</table></td>
+			</tr>
+			<tr>
+				<th height="39" colspan="4" align="center" bgcolor="#161616"
+					scope="row">&copy;<span
+					style="font-size: 12px; font-family: Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #5E5E5E;">
+						Copyright 2014 by Melon Studio</span></th>
+			</tr>
+		</tbody>
+		<div class="modal fade" id="modal-container-531306" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">×</button>
+						<h4 class="modal-title" id="myModalLabel">上传图片</h4>
+					</div>
+					<div class="modal-body">
+						<div class="container-fluid">
+							<div class="row-fluid">
+								<div class="span12">
+									<div class="alert alert-success">
+										<button type="button" class="close" data-dismiss="alert">×</button>
+										<h6 style="">您可以上传一张图片</h6>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="uploader">
+							<p>您的浏览器未安装 Flash, Silverlight, Gears, BrowserPlus 或者支持 HTML5
+								.</p>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button data-dismiss="modal" type="button" class="btn btn-primary"
+							style="background: #2eb398; color: #ffffff">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</table>

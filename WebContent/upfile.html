@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script src="js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="js/plupload/js/plupload.full.js"></script>
+<script type="text/javascript"
+	src="js/plupload/js/jquery.plupload.queue/jquery.plupload.queue.js"></script>
+<script type="text/javascript" src="js/plupload/js/i18n/cn.js"></script>
+<style type="text/css">
+@import
+	url(js/plupload/js/jquery.plupload.queue/css/plupload.bootstrap.css);
+</style>
+<script type="text/javascript" src="js/jsonutil.js"></script>
+<script type="text/javascript">
+	var j16 = jQuery.noConflict();
+	// Convert divs to queue widgets when the DOM is ready
+	j16(function() {
+		j16("#uploader").pluploadQueue({
+			// General settings
+			runtimes : 'html5,flash,silverlight,html4',
+			url : '/AppFactoryService/mobileimage',
+			max_file_size : '2mb',
+			unique_names : true,
+			multiple_queues : false,
+			//一次只能选择一个图片
+			multi_selection : false,
+			dragdrop : true,
+			chunk_size : '2mb',
+			// Specify what files to browse for
+			filters : [ {
+				title : "图片",
+				extensions : "jpg,bmp,png,gif"
+			} ],
+			// Flash settings
+			flash_swf_url : 'js/plupload/js/plupload.flash.swf',
+			// Silverlight settings
+			silverlight_xap_url : 'js/plupload/js/plupload.silverlight.xap'
+		});
+
+		var upl = j16("#uploader").pluploadQueue();
+		upl.bind('FileUploaded', function(up, file, res) {
+			try {
+				var json = jQuery.parseJSON(res['response']);
+				alert(json['url']);
+			} catch (e) {
+				alert(e);
+			}
+			//alert(file.name + " uploaded!");
+			//a
+		});
+
+		j16("#uploader").pluploadQueue();
+		upl.bind('FilesAdded', function(up, files) {
+			if (up.files.length > 1) {
+				alert("您只能上传一张图片！");
+				up.removeFile(files[0]);
+			}
+		});
+
+		j16('#form')
+				.submit(
+						function(e) {
+							var uploader = $('#uploader').pluploadQueue();
+							alert(uploader.files.length);
+							if (uploader.files.length > 0
+									&& uploader.files.length < 2) {
+								// When all files are uploaded submit form
+								uploader
+										.bind(
+												'StateChanged',
+												function() {
+													if (uploader.files.length === (uploader.total.uploaded + uploader.total.failed)) {
+														j16('form')[1].submit();
+													}
+												});
+								uploader.start();
+							} else if (uploader.files.length > 0) {
+								alert("only one file is allowed!");
+							} else {
+								alert('you should choose one file!');
+							}
+							return false;
+						});
+	});
+</script>
+<body>
+	<div id="uploader">
+		<p>您的浏览器未安装 Flash, Silverlight, Gears, BrowserPlus 或者不支持 HTML5 .</p>
+	</div>
+	<input id="imgSrcId" type="hidden" name="imgSrc" value="aaa" />
+</body>
+</html>

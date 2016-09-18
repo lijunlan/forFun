@@ -1,0 +1,269 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>注册</title>
+<link rel="apple-touch-icon-precomposed" sizes="144x144"
+	href="img/144.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114"
+	href="img/114.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/72.png">
+<link rel="apple-touch-icon-precomposed" href="img/57.png">
+<link rel="shortcut icon" href="img/57.png">
+<style type="text/css">
+.input-form {
+	
+}
+</style>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/plupload/js/plupload.full.js"></script>
+<script type="text/javascript"
+	src="js/plupload/js/jquery.plupload.queue/jquery.plupload.queue.js"></script>
+<script type="text/javascript" src="js/plupload/js/i18n/cn.js"></script>
+<style type="text/css">
+@import
+	url(js/plupload/js/jquery.plupload.queue/css/plupload.bootstrap.css);
+</style>
+<script type="text/javascript">
+	var j16 = jQuery.noConflict();
+	//Convert divs to queue widgets when the DOM is ready
+	j16(function() {
+		j16("#uploader").pluploadQueue({
+			// General settings
+			runtimes : 'html5,flash,silverlight,html4',
+			url : '/UMediaService/upimage',
+			max_file_size : '2mb',
+			unique_names : true,
+			multiple_queues : false,
+			//一次只能选择一个图片
+			multi_selection : false,
+			dragdrop : true,
+			chunk_size : '2mb',
+			// Specify what files to browse for
+			filters : [ {
+				title : "图片",
+				extensions : "jpg,bmp,png,gif"
+			} ],
+			// Flash settings
+			flash_swf_url : 'js/plupload/js/plupload.flash.swf',
+			// Silverlight settings
+			silverlight_xap_url : 'js/plupload/js/plupload.silverlight.xap'
+		});
+		var upl = j16("#uploader").pluploadQueue();
+		upl.bind('FileUploaded', function(up, file, res) {
+			try {
+				var json = jQuery.parseJSON(res['response']);
+				j16('#url').val(json['url']);
+			} catch (e) {
+				alert(e);
+			}
+			//alert(file.name + " uploaded!");
+			//a
+		});
+
+		j16("#uploader").pluploadQueue();
+		upl.bind('FilesAdded', function(up, files) {
+			if (up.files.length > 1) {
+				alert("您只能上传一张图片！");
+				up.removeFile(files[0]);
+			}
+		});
+
+		j16('#form')
+				.submit(
+						function(e) {
+							var uploader = $('#uploader').pluploadQueue();
+							alert(uploader.files.length);
+							if (uploader.files.length > 0
+									&& uploader.files.length < 2) {
+								// When all files are uploaded submit form
+								uploader
+										.bind(
+												'StateChanged',
+												function() {
+													if (uploader.files.length === (uploader.total.uploaded + uploader.total.failed)) {
+														j16('form')[1].submit();
+													}
+												});
+								uploader.start();
+							} else if (uploader.files.length > 0) {
+								alert("only one file is allowed!");
+							} else {
+								alert('you should choose one file!');
+							}
+							return false;
+						});
+	});
+
+	function register() {
+		var username = j16("#username").val();
+		var pwd = j16("#pwd").val();
+		var email = j16("#email").val();
+		var name = j16("#nickname").val();
+		var url = j16("#url").val();
+		if (username == null || username == "") {
+			alert("请填写用户名");
+			return;
+		}
+		if (pwd == null || pwd == "") {
+			alert("请填写密码");
+			return;
+		}
+		if (email == null || email == "") {
+			alert("请填写邮箱");
+			return;
+		}
+		if (name == null || name == "") {
+			alert("请填写昵称");
+			return;
+		}
+		if (url == null || url == "") {
+			alert("请上传头像");
+			return;
+		}
+		j16.ajax({
+			cache : true,
+			type : "POST",
+			url : "/UMediaService/manage",
+			data : "{'style':'user','method':'register','username':'"
+					+ username + "','password':'" + pwd + "','email':'" + email
+					+ "','name':'" + name + "','url':'" + url + "'}",
+			async : false,
+			error : function(request) {
+				alert("Connection error");
+			},
+			success : function(data, textStatu) {
+				var dataObj = eval("(" + data + ")");
+				alert(dataObj.state);
+				self.location = 'login.html';
+			}
+		});
+	}
+</script>
+</head>
+<body style="background: #323232">
+	<div class="container" align="center"
+		style="width: 100%; margin: 0px; padding: 0px;">
+		<div class="container" align="center"
+			style="background: url(img/header_register.png); width: 80%; height: 79px; margin: 0px; padding: 0px;">
+		</div>
+		<div class="container" align="left"
+			style="background: #fff; width: 80%; height: 106px; margin: 0px; padding: 0px;">
+			<div align="left"
+				style="width: 280px; margin-top: 50px; float: left;">
+				<img alt="" src="img/reg_01.png" style="height: 56px">
+			</div>
+			<div align="right"
+				style="width: 280px; margin-top: 50px; float: right; padding-right: 20px">
+				<h5>
+					如果您已经注册,请<a href="login.html">登录</a>&gt;&gt;
+				</h5>
+			</div>
+		</div>
+		<div class="container" align="center"
+			style="background: #fff; height: 580px; width: 80%">
+			<div class="container" align="left"
+				style="width: 40%; height: 20px; margin-top: 50px">
+				<div align="right" style="width: 20%; float: left;">
+					<h4>用户名</h4>
+				</div>
+				<div align="center" style="width: 70%; float: right;">
+					<input id="username" class="form-control" type="text"
+						style="height: 30px"></input>
+				</div>
+			</div>
+			<div class="container" align="left"
+				style="width: 40%; height: 20px; margin-top: 50px">
+				<div align="right" style="width: 20%; float: left;">
+					<h4>密码</h4>
+				</div>
+				<div align="center" style="width: 70%; float: right;">
+					<input id="pwd" class="form-control" type="password"
+						style="height: 30px"></input>
+				</div>
+			</div>
+			<div class="container" align="left"
+				style="width: 40%; height: 20px; margin-top: 50px">
+				<div align="right" style="width: 20%; float: left;">
+					<h4>邮箱</h4>
+				</div>
+				<div align="center" style="width: 70%; float: right;">
+					<input id="email" class="form-control" type="email"
+						style="height: 30px"></input>
+				</div>
+			</div>
+			<div class="container" align="left"
+				style="width: 40%; height: 20px; margin-top: 50px">
+				<div align="right" style="width: 20%; float: left;">
+					<h4>昵称</h4>
+				</div>
+				<div align="center" style="width: 70%; float: right;">
+					<input id="nickname" class="form-control" type="text"
+						style="height: 30px"></input>
+				</div>
+			</div>
+			<div class="container" align="left"
+				style="width: 40%; height: 20px; margin-top: 50px">
+				<div align="right" style="width: 20%; float: left;">
+					<h4>头像</h4>
+				</div>
+				<div align="center" style="width: 70%; float: right;">
+					<input id="url" class="form-control" type="url"
+						style="height: 30px" readonly></input>
+				</div>
+			</div>
+			<div class="container" align="left"
+				style="width: 40%; height: 20px; margin-top: 20px">
+				<div align="right" style="width: 20%; float: left;"></div>
+				<div align="right" style="width: 70%; float: right;">
+					<a id="modal-531306" href="#modal-container-531306"
+						class="btn pull-right" class="btn btn-default" data-toggle="modal">上传图片</a>
+				</div>
+			</div>
+			<div class="container" align="center"
+				style="width: 40%; height: 20px; margin-top: 50px">
+				<button type="button" class="btn btn-success" style="width: 100%"
+					onclick="register()">注册</button>
+			</div>
+		</div>
+		<div class="container" align="center"
+			style="background: #555555; width: 80%">
+			<h6 style="color: #454545">© Copyright 2014 by Melon Studio</h6>
+		</div>
+	</div>
+	<div class="modal fade" id="modal-container-531306" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">×</button>
+					<h4 class="modal-title" id="myModalLabel">上传图片</h4>
+				</div>
+				<div class="modal-body">
+					<div class="container-fluid">
+						<div class="row-fluid">
+							<div class="span12">
+								<div class="alert alert-success">
+									<button type="button" class="close" data-dismiss="alert">×</button>
+									<h6 style="">您可以上传一张图片</h6>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="uploader">
+						<p>您的浏览器未安装 Flash, Silverlight, Gears, BrowserPlus 或者支持 HTML5
+							.</p>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button data-dismiss="modal" type="button" class="btn btn-primary"
+						style="background: #2eb398; color: #ffffff">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
