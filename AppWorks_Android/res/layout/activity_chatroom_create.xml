@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#586575"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/chatroom_create_groupname"
+        style="@style/create_chatroom_edittext_style"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/bg_edittext"
+        android:ems="10"
+        android:hint="Groupname"
+        android:textColor="#ffffff"
+        android:textColorHint="#ffffff" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/chatroom_create_pnum"
+        style="@style/create_chatroom_edittext_style"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/bg_edittext"
+        android:ems="10"
+        android:hint="number of people"
+        android:inputType="number"
+        android:textColor="#ffffff"
+        android:textColorHint="#ffffff" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp" >
+
+        <RadioButton
+            android:id="@+id/chatroom_create_radio_free"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="free" />
+
+        <RadioButton
+            android:id="@+id/chatroom_create_radio_admin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="administor manage" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/chatroom_create_setup"
+        style="@style/create_chatroom_edittext_style"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
+        android:background="#27333F"
+        android:text="Set Up"
+        android:textColor="#ffffff" />
+
+</LinearLayout>

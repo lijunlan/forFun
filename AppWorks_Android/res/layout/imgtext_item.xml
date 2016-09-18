@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:minHeight="@dimen/main_activity_min_imgtext_item_size"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/imgtext_item_time"
+        style="@style/value_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/imgtext_left_margin" />
+
+    <ImageView
+        android:id="@+id/imgtext_item_img"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/imgtext_item_title"
+        style="@style/key_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/imgtext_left_margin"
+        android:singleLine="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_height"
+        android:background="@color/label_background"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/imgtext_item_remarkclick"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="5dip" >
+
+            <com.melonstudio.ui.CircularImage
+                android:layout_width="@dimen/little_labels_size"
+                android:layout_height="@dimen/little_labels_size"
+                android:layout_marginRight="@dimen/img_txt_margin"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_remarks" />
+
+            <TextView
+                android:id="@+id/imgtext_item_remarks"
+                style="@style/value_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/imgtext_item_likeclick"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="5dip" >
+
+            <com.melonstudio.ui.CircularImage
+                android:layout_width="@dimen/little_labels_size"
+                android:layout_height="@dimen/little_labels_size"
+                android:layout_marginRight="@dimen/img_txt_margin"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_like" />
+
+            <TextView
+                android:id="@+id/imgtext_item_likes"
+                style="@style/value_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/imgtext_item_shareclick"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="5dip" >
+
+            <com.melonstudio.ui.CircularImage
+                android:layout_width="@dimen/little_labels_size"
+                android:layout_height="@dimen/little_labels_size"
+                android:layout_marginRight="@dimen/img_txt_margin"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_share" />
+
+            <TextView
+                android:id="@+id/imgtext_item_shares"
+                style="@style/value_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

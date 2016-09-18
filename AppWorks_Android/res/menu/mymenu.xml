@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menu_user_info"
+        android:title="User Info"/>
+    <item
+        android:id="@+id/menu_login"
+        android:title="Login"/>
+    <item
+        android:id="@+id/menu_regist"
+        android:title="Regist"/>
+    <item
+        android:id="@+id/menu_reset_password"
+        android:title="Reset Password"/>
+    <item
+        android:id="@+id/menu_exit"
+        android:title="Exit"/>
+
+</menu>

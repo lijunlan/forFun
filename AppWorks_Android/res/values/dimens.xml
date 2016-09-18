@@ -1,0 +1,66 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- Content Title Bar -->
+    <dimen name="title_bar_height">50dip</dimen>
+    <dimen name="title_bar_icon_size">30dip</dimen>
+
+    <!-- header size -->
+    <dimen name="little_er_header_size">45dip</dimen>
+    <dimen name="litter_header_size">65dip</dimen>
+    <dimen name="little_header_margin">5dip</dimen>
+    <dimen name="bigger_header_size">120dip</dimen>
+    <dimen name="bigger_header_size_margin_top">-60dip</dimen>
+
+    <!-- main activity item -->
+    <dimen name="little_label_size">20dip</dimen>
+    <dimen name="little_label_margin">5dip</dimen>
+    <dimen name="bigger_label_margin">15dip</dimen>
+    <dimen name="little_text_size">14sp</dimen>
+    <dimen name="main_activity_min_imgtext_item_size">350dip</dimen>
+    <dimen name="main_activity_min_puretext_item_size">150dip</dimen>
+    <dimen name="passage_item_width">150dip</dimen>
+    <dimen name="passage_item_height">135dip</dimen>
+
+    <!-- word size -->
+    <dimen name="little_word_size">16sp</dimen>
+
+    <!-- user info -->
+    <dimen name="user_info_right_margin">10dip</dimen>
+    <dimen name="user_info_key">20sp</dimen>
+    <dimen name="user_info_value">16sp</dimen>
+    <dimen name="user_info_min_item_height">40dip</dimen>
+    <dimen name="user_info_bigger_text">18sp</dimen>
+    <dimen name="user_info_smaller_text">16sp</dimen>
+
+    <!-- Sliding menu -->
+    <dimen name="slidingmenu_offset">60dp</dimen>
+    <dimen name="list_padding">10dp</dimen>
+    <dimen name="shadow_width">15dp</dimen>
+    <dimen name="menu_width">300dip</dimen>
+
+    <integer name="num_cols">1</integer>
+
+    <!-- big Button word -->
+    <dimen name="big_btn_word_size">22sp</dimen>
+    <dimen name="big_btn_margin_side">3dip</dimen>
+    <dimen name="big_btn_margin_top">35dip</dimen>
+
+    <!-- imgtext -->
+    <dimen name="little_labels_size">30dip</dimen>
+    <dimen name="imgtext_left_margin">8dip</dimen>
+    <dimen name="img_txt_margin">5dip</dimen>
+
+    <!-- chat -->
+    <dimen name="chat_layout_dividerHeight">25dip</dimen>
+
+    <!-- about -->
+    <dimen name="about_shadow_width">25dip</dimen>
+
+    <!-- time text -->
+    <dimen name="time_text_size">12sp</dimen>
+
+</resources>

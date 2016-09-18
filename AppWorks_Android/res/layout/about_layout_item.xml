@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_vertical"
+    android:background="@android:color/transparent"
+    android:minHeight="@dimen/about_shadow_width"
+    android:padding="8dip" >
+
+    <com.melonstudio.ui.CircularImage
+        android:id="@+id/about_item_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="@dimen/little_header_margin"
+        android:adjustViewBounds="true"
+        android:maxHeight="@dimen/litter_header_size"
+        android:maxWidth="@dimen/litter_header_size" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/about_item_header"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/about_item_name"
+            style="@style/key_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/little_header_margin" />
+
+        <TextView
+            android:id="@+id/about_item_desc"
+            style="@style/value_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/little_header_margin"
+            android:layout_marginTop="@dimen/little_header_margin" />
+    </LinearLayout>
+
+</RelativeLayout>

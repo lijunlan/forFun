@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#FBFAF8"
+    android:minHeight="65dp"
+    android:orientation="horizontal" >
+
+    <com.melonstudio.ui.CircularImage
+        android:id="@+id/chatroom_item_header_local_id"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:contentDescription="@string/header"
+        android:src="@drawable/header1" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@id/chatroom_item_header_local_id" >
+
+        <TextView
+            android:id="@+id/chatroom_item_name_local_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="#1F2314" />
+
+        <TextView
+            android:id="@+id/chatroom_item_last_message_local_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/chatroom_item_name_local_id"
+            android:layout_marginTop="5dp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/chatroom_item_unread_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="25dp"
+        android:textColor="#1F2314" />
+
+</RelativeLayout>

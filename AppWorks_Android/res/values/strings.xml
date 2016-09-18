@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="netservice_start_action">melonstudio_networkserivce_start_action</string>
+    <string name="netservice_start_catogory">melonstudio_networkservice_start_catogory</string>
+    <string name="app_name">U-Media</string>
+    <string name="main_content_title">U-Media</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="regist">注册</string>
+    <string name="login">登录</string>
+    <string name="username">用户名</string>
+    <string name="password">密码</string>
+    <string name="header">头像</string>
+    <string name="send">发送</string>
+    <string name="createChatRoom">创建聊天室</string>
+    <string name="ServerAppName">AppFactoryService</string>
+    <string name="chatroom_list">聊天室</string>
+    <!-- configuration -->
+    <string name="adsImgUrl">http://img.hb.aicdn.com/21a132cd085940642195383018ec70739c881e3eae49-tbbV41_fw658</string>
+    <string name="userImgUrl">http://ww1.sinaimg.cn/large/a4224489jw1ef8p7b7tekj20bw0gw0ty.jpg</string>
+    <string name="regist_activity">com.melonstudio.appworks.RegistActivity</string>
+    <string name="network_service">com.melonstudio.network.ContentService</string>
+    <string name="content_activity">com.melonstudio.appworks.ContentMainActivity</string>
+    <string name="login_activity">com.melonstudio.appworks.LoginActivity</string>
+    <string name="reset_password_activity">com.melonstudio.appworks.ResetPasswordActivity</string>
+    <string name="comment_activity">com.melonstudio.appworks.CommentActivity</string>
+    <string name="userinfo_activity">com.melonstudio.appworks.UserInfoActivity</string>
+    <string name="other_userinfo_activity">com.melonstudio.appworks.OtherUserInfoActivity</string>
+    <string name="userinfo_update_activity">com.melonstudio.appworks.UserInfoUpdateActivity</string>
+    <string name="sliding_menu_fragment">com.melonstudio.appworks.fragments.SampleListFragment</string>
+    <string name="chat_activity">com.melonstudio.appworks.ChatAcitvity</string>
+    <string name="chat_list_activity">com.melonstudio.appworks.ChatListActivity</string>
+    <string name="about_activity">com.melonstudio.appworks.AboutActivity</string>
+    <string name="welcome_activity">com.melonstudio.appworks.WelcomActivity</string>
+    <string name="setting_activity">com.melonstudio.appworks.SettingActivity</string>
+    <string name="content_main_fragment">com.melonstudio.appworks.fragments.ContentMainFragment</string>
+    <string name="webview_fragment">com.melonstudio.appworks.fragments.WebviewFragment</string>
+    <string name="collection_activity">com.melonstudio.appworks.CollectionActivity</string>
+    <!-- Server configuration -->
+    <string name="server_host">www.sdll18.com</string>
+    <string name="server_port">80</string>
+    <string name="mina_server_port">9988</string>
+
+</resources>

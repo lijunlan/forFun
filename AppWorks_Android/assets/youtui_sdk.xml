@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<KeyInfo>
+
+    <!-- 分享平台的注册信息，一定要填入在相应平台注册的正确信息，不然应用无法完成授权，  也无法进行分享，enable填写true或者false属性决定是否分享该平台 -->
+    <!-- 友推sdk注册地址 : http://youtui.mobi/ -->
+
+    <YouTui AppKey="768815" />
+
+    <!-- 微信和朋友圈注册:https://open.weixin.qq.com/ -->
+
+    <Wechat
+        AppId="wxabbcfba49d9e485d"
+        Enable="true" />
+
+    <WechatMoments
+        AppId="wxabbcfba49d9e485d"
+        Enable="true" />
+
+    <!-- 新浪微博注册地址:http://open.weibo.com/ -->
+    <!-- IsNoKeyShare属性,如果开发者没有新浪微博的key但是希望能使用新浪微博的分享功能,可以将IsNoKeyShare设置为true,这样就不需要设置AppKey,AppSecret,RedirectUrl而是使用友推默认的新浪注册信息 -->
+    <!-- IsWebShare设置为true则使用web分享而不是使用默认的调用新浪微博客户端进行分享,有用户在小米等机型下调用新浪微博客户端进行分享时无法获得授权,这样的话请使用web方式进行分享 -->
+
+    <SinaWeibo
+        AppKey=""
+        AppSecret=""
+        Enable="true"
+        IsNoKeyShare="true"
+        IsWebShare="true"
+        RedirectUrl="" />
+
+    <!-- QQ,QQ空间,腾讯微博注册地址:http://open.qq.com/ -->
+
+    <QQ
+        AppId=""
+        AppKey=""
+        Enable="false" />
+
+    <QZone
+        AppId=""
+        AppKey=""
+        Enable="false" />
+    <!-- 腾讯微博注册地址:http://dev.t.qq.com/ -->
+    <!-- IsNoKeyShare属性,如果开发者没有腾讯微博的key但是希望能使用腾讯微博的分享功能,可以将IsNoKeyShare设置为true,这样就不需要设置AppKey,AppSecret,RedirectUrl而是使用友推默认的腾讯微博注册信息 -->
+
+    <TencentWeibo
+        AppKey=""
+        AppSecret=""
+        Enable="false"
+        IsNoKeyShare="true"
+        RedirectUrl="" />
+
+    <!-- 人人注册地址: http://dev.renren.com/ -->
+
+    <Renren
+        AppId=""
+        AppKey=""
+        Enable="false"
+        SecretKey="" />
+
+    <ShortMessage Enable="false" />
+
+    <Email Enable="false" />
+    <!-- 复制链接 -->
+
+    <CopyLink Enable="false" />
+    <!-- 二维码 -->
+
+    <QRCode Enable="false" />
+
+    <!-- 调用系统分享，适用于暂时没有申请到key的分享，该分享不会获得积分，也不会被统计到 -->
+
+    <More Enable="false" />
+
+</KeyInfo>

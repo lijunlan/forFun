@@ -1,0 +1,16 @@
+package com.sdll18.notificationserver.network.handler;
+
+import org.apache.mina.core.session.IoSession;
+
+import com.sdll18.notificationserver.network.SessionManager;
+import com.sdll18.notificationserver.network.data.SuperMap;
+
+public class SessionOpenedHandler {
+
+	public static void handle(IoSession session) {
+		session.write(new SuperMap().put("state", "welcome to server")
+				.finishByJson());
+		SessionManager.getManager().addSession(session);
+		// TODO
+	}
+}

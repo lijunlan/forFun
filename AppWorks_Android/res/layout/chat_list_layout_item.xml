@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:padding="@dimen/list_padding" >
+
+    <com.melonstudio.ui.CircularImage
+        android:id="@+id/chat_list_item_header"
+        android:layout_width="@dimen/litter_header_size"
+        android:layout_height="@dimen/litter_header_size"
+        android:layout_gravity="fill"
+        android:layout_marginRight="@dimen/list_padding"
+        android:scaleType="fitXY" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center" >
+
+        <TextView
+            android:id="@+id/chat_list_item_name"
+            style="@style/key_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:gravity="center_vertical"
+            android:singleLine="true" />
+
+        <TextView
+            android:id="@+id/chat_list_item_content"
+            style="@style/value_style"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/chat_list_item_name"
+            android:gravity="center_vertical|left"
+            android:maxEms="12"
+            android:singleLine="true" />
+
+        <TextView
+            android:id="@+id/chat_list_item_time"
+            style="@style/value_style"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/chat_list_item_name"
+            android:layout_toRightOf="@+id/chat_list_item_content"
+            android:gravity="center_vertical|right"
+            android:singleLine="true" />
+    </RelativeLayout>
+
+</LinearLayout>

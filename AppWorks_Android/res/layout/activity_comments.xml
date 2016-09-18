@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    android:orientation="vertical" >
+
+    <ListView
+        android:id="@+id/comments_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.25"
+        android:divider="@color/label_background"
+        android:dividerHeight="1dip" >
+    </ListView>
+
+    <LinearLayout
+        android:id="@+id/commnet_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="5dip"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:paddingTop="5dip" >
+
+        <EditText
+            android:id="@+id/comments_input"
+            style="@style/key_style"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dip"
+            android:layout_weight="1"
+            android:hint="写下您的评论..."
+            android:inputType="text"
+            android:singleLine="true" />
+
+        <ImageButton
+            android:id="@+id/comments_send_comment"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:layout_marginRight="5dip"
+            android:background="@drawable/send_comment"
+            android:scaleType="centerInside"
+            android:src="@drawable/reply_btn" />
+    </LinearLayout>
+
+</LinearLayout>

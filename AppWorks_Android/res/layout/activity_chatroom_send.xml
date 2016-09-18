@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="bottom" >
+
+    <com.melonstudio.ui.CircularImage
+        android:id="@+id/activity_chatroom_send_header"
+        style="@style/circle_header_style"
+        android:layout_alignParentRight="true"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/header"
+        android:src="@drawable/header1" />
+
+    <TextView
+        android:id="@+id/activity_chatroom_send_text"
+        style="@style/key_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:layout_toLeftOf="@+id/activity_chatroom_send_header"
+        android:background="@drawable/icon_babol_right"
+        android:maxEms="12"
+        android:textIsSelectable="false" />
+
+    <TextView
+        android:id="@+id/activity_chatroom_send_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/activity_chatroom_send_text"
+        android:layout_margin="3dp"
+        android:layout_toLeftOf="@+id/activity_chatroom_send_header"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:textIsSelectable="false"
+        android:textSize="14sp" />
+
+</RelativeLayout>

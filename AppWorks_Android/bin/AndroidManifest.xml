@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.melonstudio.appworks"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="17" />
+
+    <!-- 检测网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 获取mac地址作为用户的备用唯一标识 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 获取用户手机的IMEI，用来唯一的标识用户。 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 写入SDcard权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 用于读取sd卡图片 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.Sherlock.Light.DarkActionBar" >
+        <activity
+            android:name="com.melonstudio.appworks.WelcomActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.melonstudio.appworks.ContentMainActivity"
+            android:label="  U-Media"
+            android:launchMode="singleTop"
+            android:logo="@drawable/icon_menu" >
+        </activity>
+        <activity
+            android:name="com.melonstudio.appworks.ImgTextOpenupActivity"
+            android:logo="@drawable/back_img" >
+        </activity>
+        <activity
+            android:name="com.melonstudio.appworks.LoginActivity"
+            android:label="用户登录"
+            android:logo="@drawable/back_img"
+            android:screenOrientation="behind" >
+        </activity>
+        <activity
+            android:name="com.melonstudio.appworks.RegistActivity"
+            android:label="用户注册"
+            android:logo="@drawable/back_img"
+            android:screenOrientation="behind" >
+        </activity>
+        <activity
+            android:name="com.melonstudio.appworks.ResetPasswordActivity"
+            android:label="更改密码"
+            android:logo="@drawable/back_img"
+            android:screenOrientation="behind" >
+        </activity>
+        <activity
+            android:name="com.melonstudio.appworks.CommentActivity"
+            android:label="用户评论"
+            android:logo="@drawable/back_img"
+            android:screenOrientation="behind" >
+        </activity>
+        <activity
+            android:name="com.melonstudio.appworks.UserInfoActivity"
+            android:label="个人信息"
+            android:logo="@drawable/back_img"
+            android:screenOrientation="behind" >
+        </activity>
+        <activity
+            android:name="com.melonstudio.appworks.UserInfoUpdateActivity"
+            android:logo="@drawable/back_img"
+            android:screenOrientation="behind" >
+        </activity>
+        <activity
+            android:name="com.melonstudio.appworks.OtherUserInfoActivity"
+            android:label="详细资料"
+            android:logo="@drawable/back_img"
+            android:screenOrientation="behind" >
+        </activity>
+        <activity
+            android:name="com.melonstudio.appworks.CollectionActivity"
+            android:label="收藏"
+            android:logo="@drawable/back_img"
+            android:screenOrientation="behind" >
+        </activity>
+        <activity
+            android:name="com.melonstudio.appworks.ChatAcitvity"
+            android:launchMode="singleTop"
+            android:logo="@drawable/back_img"
+            android:screenOrientation="behind" >
+        </activity>
+        <activity
+            android:name="com.melonstudio.appworks.ChatListActivity"
+            android:label="私信列表"
+            android:launchMode="singleTop"
+            android:logo="@drawable/back_img"
+            android:screenOrientation="behind" >
+        </activity>
+        <activity
+            android:name="com.melonstudio.appworks.AboutActivity"
+            android:label="关于"
+            android:logo="@drawable/back_img"
+            android:screenOrientation="behind" >
+        </activity>
+        <activity
+            android:name="com.melonstudio.appworks.SettingActivity"
+            android:label="设置"
+            android:logo="@drawable/back_img"
+            android:screenOrientation="behind" >
+        </activity>
+
+        <!-- 微信分享需要注册该activity -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="behind"
+            android:theme="@android:style/Theme.Translucent" >
+        </activity>
+        <!-- qq授权需要注册该activity -->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true"
+            android:screenOrientation="behind" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- 请将1101255276换成开发者自己应用的腾讯开放平台 Appid -->
+                <data android:scheme="tencent1101255276" />
+            </intent-filter>
+        </activity>
+        <!-- 人人授权需要注册的activity -->
+        <activity
+            android:name="com.renn.rennsdk.oauth.OAuthActivity"
+            android:configChanges="orientation|navigation|keyboardHidden"
+            android:screenOrientation="behind" />
+
+        <!-- 分享界面 -->
+        <activity
+            android:name="cn.bidaround.ytcore.activity.ShareActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="behind"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <!-- 应用授权 activity -->
+        <activity
+            android:name="cn.bidaround.ytcore.login.AuthActivity"
+            android:screenOrientation="behind"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <service
+            android:name="com.melonstudio.network.NetworkService"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="@string/netservice_start_action" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="@string/netservice_start_catogory" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.melonstudio.network.ContentService"
+            android:exported="false" >
+        </service>
+
+        <uses-library android:name="android.test.runner" />
+    </application>
+
+    <instrumentation
+        android:name="android.test.InstrumentationTestRunner"
+        android:label="Demo for JUnittest"
+        android:targetPackage="com.melonstudio.appworks" />
+
+</manifest>

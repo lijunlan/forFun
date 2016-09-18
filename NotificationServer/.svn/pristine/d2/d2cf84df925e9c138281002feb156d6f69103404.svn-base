@@ -1,0 +1,18 @@
+package com.sdll18.notificationserver.network.service;
+
+public class MinaHeartService extends MsgService {
+
+	@Override
+	protected boolean checkData() {
+		return getData().containsKey("user_id")
+				&& getData().containsKey("refresh_time")
+				&& getData().containsKey("formulate_time");
+	}
+
+	@Override
+	public void doit() {
+		// TODO Auto-generated method stub
+
+	}
+
+}

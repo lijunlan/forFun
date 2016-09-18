@@ -1,0 +1,78 @@
+package com.sdll18.notificationserver.network.handler;
+
+import java.util.Map;
+
+import org.apache.mina.core.session.IoSession;
+
+import com.sdll18.notificationserver.network.data.SuperMap;
+import com.sdll18.notificationserver.network.json.Json;
+import com.sdll18.notificationserver.network.service.MinaHeartService;
+import com.sdll18.notificationserver.network.service.MinaStartService;
+import com.sdll18.notificationserver.network.service.MsgService;
+import com.sdll18.notificationserver.network.service.SendMessageService;
+import com.sdll18.notificationserver.network.service.SendNotificationService;
+
+public class MsgReceiveHandler {
+
+	public static void handle(IoSession session, Object message) {
+		MsgReceiveHandler handler = new MsgReceiveHandler(session, message);
+		handler.start();
+		handler.doit();
+	}
+
+	private Object inData;
+
+	private IoSession session;
+
+	private MsgService util;
+
+	private Map<String, String> data;
+
+	private MsgReceiveHandler(IoSession session, Object message) {
+		inData = message;
+		this.session = session;
+	}
+
+	private void start() {
+		data = Json.getMap((String) inData);
+		if (data.containsKey("style") && data.containsKey("method")) {
+			String style = data.get("style");
+			String method = data.get("method");
+			if (style.equals("mina")) {
+				if (method.equals("mina_heart")) {
+					util = new MinaHeartService();
+				} else if (method.equals("mina_start")) {
+					util = new MinaStartService();
+				} else if (method.equals("send_message")) {
+					util = new SendMessageService();
+				} else if (method.equals("send_notification")) {
+					util = new SendNotificationService();
+				} else {
+					session.write(new SuperMap().put("state", "error")
+							.put("msg", "method is not accurate")
+							.finishByJson());
+				}
+			} else {
+				session.write(new SuperMap().put("state", "error")
+						.put("msg", "style is not accurate").finishByJson());
+			}
+		} else {
+			session.write(new SuperMap().put("state", "error")
+					.put("msg", "style or method is not included")
+					.finishByJson());
+		}
+	}
+
+	private void doit() {
+		if (util != null) {
+			if (util.setDataMap(data)) {
+				util.setSession(session);
+				util.doit();
+				session.write(util.getResponseMsg());
+			} else {
+				session.write(new SuperMap().put("state", "error")
+						.put("msg", "data is incomplete").finishByJson());
+			}
+		}
+	}
+}

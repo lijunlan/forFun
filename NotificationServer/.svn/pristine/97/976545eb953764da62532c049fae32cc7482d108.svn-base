@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Fri Sep 19 14:28:56 CST 2014
+onejar.license.required=false
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=true
+jarname=/Users/SDLL18/Desktop/NotificationServer_fat.jar
+manifest.mergeall=true
+manifest.mainclass=com.sdll18.notificationserver.main.MainServer
+manifest.file=<createnew>
+jarname.isextern=true
+onejar.expand=
+excludes=
+includes=
